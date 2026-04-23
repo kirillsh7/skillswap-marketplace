@@ -3,14 +3,11 @@ import { User as DbUser } from '@prisma/client'
 
 declare module 'next-auth' {
   interface User {
-    id: number
-    name: string
+    id: string
     email: string
+    name: string
   }
-
   interface Session {
-    user: {
-      address: DbUser
-    }
+    user: DbUser
   }
 }
