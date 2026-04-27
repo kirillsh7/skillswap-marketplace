@@ -1,3 +1,4 @@
+'use client'
 import { MoveRight } from 'lucide-react'
 import { LargeFeaturedCard } from './LargeFeaturedCard'
 import { SmallerCard } from './SmallerCard'

@@ -1,3 +1,4 @@
+'use client'
 import { ASSETS } from '@/shared'
 import { SearchBar } from './SearchBar'
 import Image from 'next/image'

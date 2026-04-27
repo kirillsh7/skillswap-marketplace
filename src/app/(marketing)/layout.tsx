@@ -9,10 +9,8 @@ export default function RootLayout({
   return (
     <>
       <Header />
-      <main className='flex-grow'>
-        <div className='bg-surface text-on-surface min-h-screen flex flex-col pt-16'>
-          {children}
-        </div>
+      <main className='flex-grow bg-surface text-on-surface min-h-screen flex flex-col'>
+        {children}
       </main>
       <Footer />
     </>

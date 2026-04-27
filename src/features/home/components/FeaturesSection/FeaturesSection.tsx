@@ -1,3 +1,4 @@
+'use client'
 import { CircleCheck, Hammer, Landmark, Lock, TrendingUp, Zap } from 'lucide-react'
 import { StepCard } from './StepCard'
 

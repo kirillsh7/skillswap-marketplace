@@ -1,3 +1,4 @@
+'use client'
 import { Star, Zap } from 'lucide-react'
 
 export const LargeFeaturedCard = () => {

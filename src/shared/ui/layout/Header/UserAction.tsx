@@ -2,6 +2,7 @@ import { ASSETS } from '@/shared/config'
 import { IconButton, GhostButton, PrimaryButton } from '../../Buttons'
 import { Bell, Wallet } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export const UserAction = () => {
   const isAuthenticated = false
@@ -25,7 +26,9 @@ export const UserAction = () => {
           />
         </>
       ) : (
-        <PrimaryButton>Войти</PrimaryButton>
+        <PrimaryButton>
+          <Link href='/login'>Войти</Link>
+        </PrimaryButton>
       )}
     </div>
   )

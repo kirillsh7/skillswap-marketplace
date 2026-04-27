@@ -1,3 +1,4 @@
+'use client'
 import { CircleCheck } from 'lucide-react'
 
 export const WideInfoCard = () => {

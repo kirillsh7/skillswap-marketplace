@@ -1,3 +1,4 @@
+'use client'
 interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   icon: React.ReactNode
   isShowDivider?: boolean

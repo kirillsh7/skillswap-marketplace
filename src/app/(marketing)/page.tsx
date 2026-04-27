@@ -1,17 +1,15 @@
-'use client'
 import { HeroSection, TopPerformersSection, FeaturesSection } from '@/features'
-// import { useTRPC } from '@/lib/trpc/client'
-// import { useSuspenseQuery } from '@tanstack/react-query'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Импульс рынка - Главная ',
+}
 export default function Home() {
-  // const trpc = useTRPC()
-  // const { data, isLoading } = useSuspenseQuery(trpc.hello.queryOptions({ text: 'world' }))
-  // if (isLoading) return <div>Loading...</div>
   return (
     <>
       <HeroSection />
       <FeaturesSection />
       <TopPerformersSection />
     </>
-    // <div>{data.greeting}</div>
   )
 }

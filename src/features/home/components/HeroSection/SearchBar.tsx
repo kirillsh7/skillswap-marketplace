@@ -1,3 +1,4 @@
+'use client'
 import { ActionButton } from '@/shared'
 import { Calendar, MapPin, Search } from 'lucide-react'
 import { SearchInput } from './SearchInput'

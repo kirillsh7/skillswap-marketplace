@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma/prisma'
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import bcrypt from 'bcryptjs'
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -16,20 +17,33 @@ export const authOptions: NextAuthOptions = {
 
         const user = await prisma.user.findUnique({ where: { email: credentials.email } })
 
-        if (user?.password === credentials.password) {
+        if (user && (await bcrypt.compare(credentials.password, user.password))) {
           return user
         } else {
           return null
         }
       },
-      callbacks: {
-        session: ({ session, token }) => {
-          session.user.id = Number(token.sub)
-          return session
-        },
-      },
     }),
   ],
+  callbacks: {
+    // 1. JWT callback — добавляет данные в токен при входе
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id
+        token.email = user.email
+      }
+      return token
+    },
+
+    // 2. Session callback — копирует данные из токена в сессию
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as number
+        session.user.email = token.email as string
+      }
+      return session
+    },
+  },
 }
 
 const handler = NextAuth(authOptions)
