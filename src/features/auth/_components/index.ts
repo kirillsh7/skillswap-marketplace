@@ -1,6 +1,4 @@
 export * from './AuthButton'
 export * from './AuthInput'
-export * from './AuthSocialButton'
 export * from './AuthLabel'
-export * from './LeftColumn'
-export * from './RightColumn'
+export * from './AuthField'

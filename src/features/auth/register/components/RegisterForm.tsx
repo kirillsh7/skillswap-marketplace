@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { RoleSelector } from '../../_components/RoleSelector'
+import { RoleSelector } from '../_components'
 
 export const RegisterForm = () => {
   return (

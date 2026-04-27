@@ -1,4 +1,4 @@
-import { RightColumn, LeftColumn } from '../../_components'
+import { RightColumn, LeftColumn } from '../_components'
 import { RegisterForm } from './RegisterForm'
 
 export const RegisterPage = () => {

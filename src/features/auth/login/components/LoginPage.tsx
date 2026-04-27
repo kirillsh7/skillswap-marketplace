@@ -1,5 +1,5 @@
 import { LoginForm } from './LoginForm'
-import { TrustSignal } from './TrustSignal'
+import { TrustSignal, AuthDivider } from '../_components'
 import { SocialLogin } from './SocialLogin'
 
 export const LoginPage = () => {
@@ -12,11 +12,8 @@ export const LoginPage = () => {
           </h1>
         </div>
         <SocialLogin />
-        <div className='flex items-center gap-3 my-6'>
-          <div className='h-px flex-1 bg-gray-300' />
-          <span className='text-xs text-gray-500'>или</span>
-          <div className='h-px flex-1 bg-gray-300' />
-        </div>
+
+        <AuthDivider text='или' />
 
         <LoginForm />
         <TrustSignal />
