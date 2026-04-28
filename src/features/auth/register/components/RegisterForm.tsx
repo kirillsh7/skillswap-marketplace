@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { RoleSelector } from '../_components'
 
 export const RegisterForm = () => {
