@@ -1,6 +1,31 @@
+'use client'
+import Link from 'next/link'
 import { RoleSelector } from '../_components'
+import { useForm } from 'react-hook-form'
+import { AuthField } from '../../_components'
+import { RegisterFormData, RegisterSchema } from '../schemas'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { registerAction } from '../action'
 
 export const RegisterForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(RegisterSchema),
+    mode: 'onChange',
+  })
+  async function onSubmit(data: RegisterFormData) {
+    const result = await registerAction(data)
+
+    // if (result?.error) {
+    //   if (typeof result.error === 'string') {
+    //     setRootError(result.error)
+    //   }
+    // }
+  }
+
   return (
     <form className='space-y-6 bg-surface-container-lowest p-8 rounded-xl shadow-[0_10px_40px_-10px_rgba(7,30,39,0.06)]'>
       <RoleSelector />
@@ -21,36 +46,20 @@ export const RegisterForm = () => {
             type='text'
           />
         </div>
-        <div>
-          <label
-            className='block text-sm font-medium text-on-surface-variant mb-1 font-label'
-            htmlFor='email'
-          >
-            Эл. почта
-          </label>
-          <input
-            className='w-full rounded-lg bg-surface-container-highest border-none focus:ring-2 focus:ring-surface-tint focus:ring-opacity-30 text-on-surface font-body p-3 placeholder:text-outline-variant transition-shadow'
-            id='email'
-            name='email'
-            placeholder='ivan@example.com'
-            type='email'
-          />
-        </div>
-        <div>
-          <label
-            className='block text-sm font-medium text-on-surface-variant mb-1 font-label'
-            htmlFor='password'
-          >
-            Пароль
-          </label>
-          <input
-            className='w-full rounded-lg bg-surface-container-highest border-none focus:ring-2 focus:ring-surface-tint focus:ring-opacity-30 text-on-surface font-body p-3 placeholder:text-outline-variant transition-shadow'
-            id='password'
-            name='password'
-            placeholder='••••••••'
-            type='password'
-          />
-        </div>
+        <AuthField
+          label='Почта'
+          id='email'
+          type='email'
+          placeholder='ivan@example.com'
+          {...register('email')}
+        />
+        <AuthField
+          label='Пароль'
+          id='password'
+          type='password'
+          placeholder='••••••••'
+          {...register('password')}
+        />
       </div>
 
       <div className='pt-4'>

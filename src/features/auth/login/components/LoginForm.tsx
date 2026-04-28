@@ -36,6 +36,7 @@ export const LoginForm = () => {
         id='email'
         type='email'
         label='Почта'
+        placeholder='ivan@example.com'
         error={errors.email?.message}
         {...register('email')}
       />
@@ -44,6 +45,7 @@ export const LoginForm = () => {
         id='password'
         type='password'
         label='Пароль'
+        placeholder='••••••••'
         error={errors.password?.message}
         {...register('password')}
       >
