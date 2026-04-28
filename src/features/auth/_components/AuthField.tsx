@@ -10,8 +10,10 @@ export const AuthField = forwardRef<HTMLInputElement, AuthFieldProps>(
   ({ label, error, id, className, children, ...props }, ref) => {
     return (
       <div className='flex flex-col gap-1.5'>
-        <AuthLabel htmlFor={id}>label</AuthLabel>
-        {children} {/* ← сюда передаётся <ForgotPasswordLink /> */}
+        <div className='flex justify-between items-center px-1'>
+          <AuthLabel htmlFor={id}>{label}</AuthLabel>
+          {children} {/* ← сюда передаётся <ForgotPasswordLink /> */}
+        </div>
         <AuthInput
           ref={ref}
           id={id}
@@ -22,3 +24,5 @@ export const AuthField = forwardRef<HTMLInputElement, AuthFieldProps>(
     )
   },
 )
+
+AuthField.displayName = 'AuthField'

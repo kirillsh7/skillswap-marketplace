@@ -39,6 +39,7 @@ export const LoginForm = () => {
         error={errors.email?.message}
         {...register('email')}
       />
+
       <AuthField
         id='password'
         type='password'
@@ -46,6 +47,7 @@ export const LoginForm = () => {
         error={errors.password?.message}
         {...register('password')}
       >
+        {' '}
         <ForgotPasswordLink />
       </AuthField>
 
