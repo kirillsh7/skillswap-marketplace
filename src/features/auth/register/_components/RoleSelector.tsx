@@ -1,6 +1,6 @@
 import { GraduationCap, User } from 'lucide-react'
 
-export const RoleSelector = () => {
+export const RoleSelector = ({ ...props }) => {
   return (
     <fieldset className='space-y-4'>
       <legend className='text-sm font-semibold text-on-surface-variant mb-2 font-label uppercase tracking-wider'>
@@ -13,6 +13,7 @@ export const RoleSelector = () => {
             name='role'
             type='radio'
             value='client'
+            {...props}
           />
           <span className='flex flex-col'>
             <User className='material-symbols-outlined text-primary mb-2' />
@@ -29,6 +30,7 @@ export const RoleSelector = () => {
             name='role'
             type='radio'
             value='provider'
+            {...props}
           />
           <span className='flex flex-col'>
             <GraduationCap className='material-symbols-outlined text-primary mb-2' />
