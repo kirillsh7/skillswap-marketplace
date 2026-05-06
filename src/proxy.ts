@@ -3,7 +3,6 @@ import type { NextRequest } from 'next/server'
 
 export function proxy(request: NextRequest) {
   const token = request.cookies.get('next-auth.session-token')
-
   if (!token) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
@@ -11,4 +10,6 @@ export function proxy(request: NextRequest) {
   return NextResponse.next()
 }
 
-export const match = ['/dashboard/:path*']
+export const config = {
+  matcher: ['/dashboard/:path*'],
+}
