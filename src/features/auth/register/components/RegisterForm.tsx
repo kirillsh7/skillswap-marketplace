@@ -2,25 +2,40 @@
 import Link from 'next/link'
 import { RoleSelector } from '../_components'
 import { useForm } from 'react-hook-form'
+import { useTRPC } from '@/lib/trpc/client'
+import { useMutation } from '@tanstack/react-query'
 import { AuthButton, AuthField } from '../../_components'
 import { RegisterFormData, RegisterSchema } from '../schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { registerAction } from '../action'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export const RegisterForm = () => {
+  const router = useRouter()
+  const trpc = useTRPC()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [rootError, setRootError] = useState<string | null>(null)
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(RegisterSchema),
     mode: 'onChange',
   })
-  async function onSubmit(data: RegisterFormData) {
-    const result = await registerAction(data)
+  const registerMutation = useMutation(trpc.auth.register.mutationOptions())
 
-    if (result?.error) {
-      console.log(result.error)
+  async function onSubmit(data: RegisterFormData) {
+    setRootError(null)
+    setIsSubmitting(true)
+    try {
+      await registerMutation.mutateAsync(data)
+      router.push('/login?registered=true')
+    } catch (error) {
+      const message = error?.message || 'Произошла ошибка при регистрации'
+      setRootError(message)
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -57,7 +72,11 @@ export const RegisterForm = () => {
           error={errors.password?.message}
         />
       </div>
-
+      {rootError && (
+        <p className='text-sm text-error text-center bg-error-container/30 rounded-lg py-2'>
+          {rootError}
+        </p>
+      )}
       <div className='pt-4'>
         <AuthButton isSubmitting={isSubmitting}> Зарегистрироваться</AuthButton>
         <p className='text-center text-sm text-on-surface-variant mt-4 font-body'>

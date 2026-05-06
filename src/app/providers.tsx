@@ -2,10 +2,17 @@
 
 import { SessionProvider } from 'next-auth/react'
 import { TRPCReactProvider } from '@/lib/trpc/client'
+import { Session } from 'next-auth'
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({
+  children,
+  session,
+}: {
+  children: React.ReactNode
+  session: Session | null
+}) {
   return (
-    <SessionProvider>
+    <SessionProvider session={session}>
       <TRPCReactProvider>{children}</TRPCReactProvider>
     </SessionProvider>
   )

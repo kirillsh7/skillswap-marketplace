@@ -5,9 +5,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { ForgotPasswordLink } from '../_components/ForgotPasswordLink'
 import { LoginSchema, type LoginFormData } from '../schemas'
 import { AuthButton, AuthField } from '../../_components'
-import { loginAction } from '../action'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 export const LoginForm = () => {
-  const [rootError, setRootError] = useState<string | null>(null)
+  const router = useRouter()
+  const [serverError, setServerError] = useState<string | null>(null)
+
   const {
     register,
     handleSubmit,
@@ -17,13 +20,19 @@ export const LoginForm = () => {
     mode: 'onChange',
   })
   async function onSubmit(data: LoginFormData) {
-    setRootError(null)
-    const result = await loginAction(data)
+    setServerError(null)
+
+    const result = await signIn('credentials', {
+      email: data.email,
+      password: data.password,
+      redirect: false, // не даём NextAuth делать редирект самому
+    })
 
     if (result?.error) {
-      if (typeof result.error === 'string') {
-        setRootError(result.error)
-      }
+      setServerError('Неверный email или пароль')
+    } else {
+      router.push('/') // или на любую защищённую страницу
+      router.refresh() // обновить данные сессии на клиенте
     }
   }
 
@@ -49,13 +58,12 @@ export const LoginForm = () => {
         error={errors.password?.message}
         {...register('password')}
       >
-        {' '}
         <ForgotPasswordLink />
       </AuthField>
 
-      {rootError && (
+      {serverError && (
         <p className='text-sm text-error text-center bg-error-container/30 rounded-lg py-2'>
-          {rootError}
+          {serverError}
         </p>
       )}
 
