@@ -47,14 +47,6 @@ export const RegisterForm = () => {
       <RoleSelector />
 
       <div className='space-y-4'>
-        {/* <AuthField 
-          label='Имя'
-          id='fullName'
-          type='text'
-          placeholder='Иван'
-          {...register('fullName')}
-          error={errors.fullName?.message}
-        /> */}
         <AuthField
           label='Почта'
           id='email'

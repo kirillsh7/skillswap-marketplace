@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { navigationLinks } from './Header.constants'
+import { ROUTES } from '@/shared'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib'
 
@@ -8,7 +8,7 @@ export const MainNav = () => {
   const pathname = usePathname()
   return (
     <div className='hidden md:flex gap-6'>
-      {navigationLinks.map(link => (
+      {ROUTES.map(link => (
         <Link
           key={link.name}
           href={link.href}

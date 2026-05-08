@@ -1,8 +1,8 @@
-export const navigationLinks = [
-  { name: 'Как это работает', href: '/explore' },
+export const SITE_NAME = 'Импульс рынка'
+
+export const ROUTES = [
+  { name: 'Как это работает', href: '/' },
   { name: 'SkillSwap (Бартер)', href: '/barter' },
   { name: 'Безопасность', href: '/escrow' },
   { name: 'Тарифы', href: '/orders' },
 ]
-
-export const LOGO_TEXT = 'Импульс рынка'

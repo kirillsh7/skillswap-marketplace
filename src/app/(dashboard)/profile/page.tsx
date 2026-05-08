@@ -1,5 +1,7 @@
+import { SITE_NAME } from '@/shared'
+
 export const metadata = {
-  title: 'Импульс рынка - Профиль',
+  title: `${SITE_NAME} - Профиль`,
 }
 export default function Profile() {
   return <p>Профиль</p>
