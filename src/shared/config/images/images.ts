@@ -25,3 +25,6 @@ export const ASSETS: Avatar = {
       'https://lh3.googleusercontent.com/aida-public/AB6AXuDYKPR_2Ub0A0OxgMI6HdMWLnvvLIKPQBUvn_I281zV08Ia0w5erMDs5q7Flwc9jVzF63ZILOhdWvKH-iAIk4A3gvodCd9H7ZT4ZgKqoNnZGA--9DxLPkLaxOJ-Lyx_Ff9ov5mLxsk5Pi6Uu-EkD9DrodXdWLPVZ-zZHli2v6DSFcwtaXxtME8KYoSchXwx0f_AkZqNykJiNV-SiSgkoXArVh1o4DfENXYHSQ9ZIjNgKCIOXlyCN7Riiu9hQ4c00LzP62UxIZxOPipZ',
   },
 }
+
+export const RegisterRightColumn =
+  'https://lh3.googleusercontent.com/aida-public/AB6AXuCTBZmSfGpG-_-mp7D2Z0GrT4l7G0pc7T7EtxtV7VVoJ6YBv888Qkm1rgyLB2NB5F8RWaewh1KUy3h0xd_ifdQ2HeY2A6LUsbRx3mjefQwuLDzTfbXNxmWy9V06M282MgyqUgo94HBWWdYKTr4mOUaoo4JHtgBjsJODYWjeZBtm9F2OGOtA9hjjygCJZEpe0TRIjHAo-VSx-xGut_BcCglb6OFxgFtCJxIYN4TyoE_rjbtDs-wXU3DydFAXlQ_2gkU8Z1FPtqIZpuNx'

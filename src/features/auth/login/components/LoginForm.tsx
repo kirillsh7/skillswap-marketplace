@@ -2,11 +2,13 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ForgotPasswordLink } from './ForgotPasswordLink'
+import { ForgotPasswordLink } from './_ForgotPasswordLink'
 import { LoginSchema, type LoginFormData } from '../schemas'
 import { AuthButton, AuthField } from '../../components'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { ROUTES } from '@/shared'
 export const LoginForm = () => {
   const router = useRouter()
   const [serverError, setServerError] = useState<string | null>(null)
@@ -31,7 +33,7 @@ export const LoginForm = () => {
     if (result?.error) {
       setServerError('Неверный email или пароль')
     } else {
-      router.push('/') // или на любую защищённую страницу
+      router.push(ROUTES.HOME) // или на любую защищённую страницу
       router.refresh() // обновить данные сессии на клиенте
     }
   }
@@ -41,6 +43,7 @@ export const LoginForm = () => {
       className='flex flex-col gap-5 mb-8'
       onSubmit={handleSubmit(onSubmit)}
     >
+      {/* email&login */}
       <AuthField
         id='email'
         type='email'
@@ -49,7 +52,7 @@ export const LoginForm = () => {
         error={errors.email?.message}
         {...register('email')}
       />
-
+      {/* Password */}
       <AuthField
         id='password'
         type='password'
@@ -58,7 +61,13 @@ export const LoginForm = () => {
         error={errors.password?.message}
         {...register('password')}
       >
-        <ForgotPasswordLink />
+        {/*ForgotPasswordLink  */}
+        <Link
+          href={ROUTES.FORGOT_PASSWORD}
+          className='text-xs font-medium text-primary hover:text-primary-container transition-colors'
+        >
+          Забыли пароль?
+        </Link>
       </AuthField>
 
       {serverError && (

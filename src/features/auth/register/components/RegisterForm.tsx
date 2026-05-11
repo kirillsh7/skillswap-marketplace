@@ -9,6 +9,7 @@ import { RegisterFormData, RegisterSchema } from '../schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { ROUTES } from '@/shared'
 
 export const RegisterForm = () => {
   const router = useRouter()
@@ -30,7 +31,7 @@ export const RegisterForm = () => {
     setIsSubmitting(true)
     try {
       await registerMutation.mutateAsync(data)
-      router.push('/login?registered=true')
+      router.push(ROUTES.LOGIN)
     } catch (error) {
       const message = error?.message || 'Произошла ошибка при регистрации'
       setRootError(message)
@@ -83,7 +84,7 @@ export const RegisterForm = () => {
           Уже есть аккаунт?{' '}
           <Link
             className='text-primary font-semibold hover:underline'
-            href='/login'
+            href={ROUTES.LOGIN}
           >
             Войти
           </Link>

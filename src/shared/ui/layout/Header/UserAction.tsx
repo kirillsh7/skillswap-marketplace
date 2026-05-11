@@ -8,21 +8,23 @@ import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { UserDropdown } from './UserDropdown'
+import { ROUTES } from '@/shared/constants'
 
 export const UserAction = () => {
+  const router = useRouter()
+
+  const containerRef = useRef<HTMLDivElement>(null)
   const { data: session, status } = useSession()
   const [isOpen, setIsOpen] = useState(false)
-  const router = useRouter()
-  const containerRef = useRef<HTMLDivElement>(null)
 
   const handleLogout = () => {
     setIsOpen(false)
-    signOut({ callbackUrl: '/' })
+    signOut({ callbackUrl: ROUTES.HOME })
   }
 
   const handleProfileClick = () => {
     setIsOpen(false)
-    router.push('/profile')
+    router.push(ROUTES.PROFILE)
   }
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -35,8 +37,11 @@ export const UserAction = () => {
     }
     return () => document.removeEventListener('click', handleClickOutside)
   }, [isOpen])
+
   const isAuthenticated = !!session
+
   if (status === 'loading') return <p>Загрузка...</p>
+
   return (
     <div
       className='flex items-center gap-4'
@@ -51,7 +56,7 @@ export const UserAction = () => {
 
           <GhostButton>Мой кошелёк</GhostButton>
           <PrimaryButton>
-            <Link href='/orders/create'>Разместить услугу</Link>
+            <Link href={`${ROUTES.ORDERS}/create`}>Разместить услугу</Link>
           </PrimaryButton>
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -74,7 +79,7 @@ export const UserAction = () => {
         </>
       ) : (
         <PrimaryButton>
-          <Link href='/login'>Войти</Link>
+          <Link href={ROUTES.LOGIN}>Войти</Link>
         </PrimaryButton>
       )}
     </div>

@@ -52,7 +52,8 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  Post: 'Post'
+  Order: 'Order',
+  Packages: 'Packages'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -72,6 +73,7 @@ export const UserScalarFieldEnum = {
   id: 'id',
   firstName: 'firstName',
   lastName: 'lastName',
+  role: 'role',
   email: 'email',
   password: 'password',
   createdAt: 'createdAt',
@@ -81,17 +83,37 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const PostScalarFieldEnum = {
+export const OrderScalarFieldEnum = {
   id: 'id',
   title: 'title',
-  content: 'content',
+  categories: 'categories',
+  subcategories: 'subcategories',
+  description: 'description',
+  tags: 'tags',
   published: 'published',
+  images: 'images',
   authorId: 'authorId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
+export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
+
+
+export const PackagesScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  price: 'price',
+  delivery: 'delivery',
+  revisions: 'revisions',
+  features: 'features',
+  description: 'description',
+  orderId: 'orderId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PackagesScalarFieldEnum = (typeof PackagesScalarFieldEnum)[keyof typeof PackagesScalarFieldEnum]
 
 
 export const SortOrder = {

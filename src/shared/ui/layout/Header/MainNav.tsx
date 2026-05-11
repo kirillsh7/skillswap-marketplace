@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { MAIN_NAVIGATION_LINKS as ROUTES } from '@/shared'
+import { NAVIGATION_LINKS as ROUTES } from './constants/navigation-links'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib'
 

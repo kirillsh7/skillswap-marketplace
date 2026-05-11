@@ -1,11 +1,11 @@
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { redirect } from 'next/navigation'
-import { Footer, Header } from '@/shared'
+import { Footer, Header, ROUTES } from '@/shared'
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession(authOptions)
-  if (!session) redirect('/login')
+  if (!session) redirect(ROUTES.LOGIN)
   return (
     <div className='flex flex-col min-h-screen'>
       <Header />

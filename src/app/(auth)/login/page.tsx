@@ -1,6 +1,8 @@
-import { AuthDivider, LoginForm, SocialLogin, TrustSignal } from '@/features'
+import { LoginForm, SocialLogin } from '@/features'
 import { Metadata } from 'next'
-import { SITE_NAME } from '@/shared'
+import { ROUTES, SITE_NAME } from '@/shared'
+import { Shield } from 'lucide-react'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: `${SITE_NAME} - Авторизация `,
@@ -15,12 +17,40 @@ export default function LoginPage() {
             Авторизация
           </h1>
         </div>
+
+        {/*  Social Login */}
         <SocialLogin />
 
-        <AuthDivider text='или' />
+        {/*  Or Divider */}
+        <div className='flex items-center gap-4 mb-8'>
+          <div className='h-[1px] flex-1 bg-surface-container-low'></div>
+          <span className='font-label text-xs text-on-surface-variant uppercase tracking-widest'>
+            или
+          </span>
+          <div className='h-[1px] flex-1 bg-surface-container-low'></div>
+        </div>
 
+        {/* Login Form */}
         <LoginForm />
-        <TrustSignal />
+
+        {/* Trust Signal */}
+        <div className='mt-auto pt-6 flex flex-col items-center gap-4'>
+          <div className='inline-flex items-center gap-2 px-3 py-1.5 bg-secondary-container/30 rounded-full'>
+            <Shield className='h-4 w-4 text-secondary' />
+            <span className='text-[0.65rem] font-medium text-on-secondary-container uppercase tracking-wider'>
+              Secured by Guardian
+            </span>
+          </div>
+          <p className='text-xs text-on-surface-variant'>
+            Станьте частью Импульс Рынка,{' '}
+            <Link
+              href={ROUTES.REGISTER}
+              className='text-primary font-medium hover:underline underline-offset-4'
+            >
+              Зарегистрироваться
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   )

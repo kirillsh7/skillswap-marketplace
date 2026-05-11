@@ -7,4 +7,6 @@ export const ROUTES = {
   PROFILE: '/profile',
   ORDERS: '/orders',
   WALLET: '/wallet',
+  BARTER: '/barter',
+  ESCROW: '/escrow',
 } as const

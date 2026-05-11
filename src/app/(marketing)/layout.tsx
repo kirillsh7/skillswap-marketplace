@@ -1,5 +1,4 @@
 import { Footer, Header } from '@/shared'
-import '@/app/globals.css'
 
 export default function RootLayout({
   children,

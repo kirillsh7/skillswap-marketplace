@@ -1,7 +1,7 @@
 interface AuthSocialButtonProps {
   Icon: React.ReactNode
   title: string
-  onClick: () => void
+  onClick?: () => void
 }
 
 export const AuthSocialButton = ({ Icon, title, onClick }: AuthSocialButtonProps) => {
