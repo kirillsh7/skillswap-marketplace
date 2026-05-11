@@ -2,9 +2,9 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ForgotPasswordLink } from '../_components/ForgotPasswordLink'
+import { ForgotPasswordLink } from './ForgotPasswordLink'
 import { LoginSchema, type LoginFormData } from '../schemas'
-import { AuthButton, AuthField } from '../../_components'
+import { AuthButton, AuthField } from '../../components'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 export const LoginForm = () => {

@@ -4,5 +4,5 @@ export const metadata = {
   title: `${SITE_NAME} - Профиль`,
 }
 export default function Profile() {
-  return <p>Профиль</p>
+  return <div>profile</div>
 }

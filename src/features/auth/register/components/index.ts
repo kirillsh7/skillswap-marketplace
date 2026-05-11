@@ -1,1 +1,3 @@
-export * from './RegisterPage'
+export * from './LeftColumn'
+export * from './RegisterForm'
+export * from './RightColumn'

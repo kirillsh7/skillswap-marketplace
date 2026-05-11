@@ -1,6 +1,6 @@
 'use client'
 
-import { AuthSocialButton } from '../_components'
+import { AuthSocialButton } from './AuthSocialButton'
 import { Briefcase, LogIn } from 'lucide-react'
 import { signIn } from 'next-auth/react'
 import { useCallback } from 'react'

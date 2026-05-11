@@ -1,10 +1,10 @@
 'use client'
 import Link from 'next/link'
-import { RoleSelector } from '../_components'
+import { RoleSelector } from './RoleSelector'
 import { useForm } from 'react-hook-form'
 import { useTRPC } from '@/lib/trpc/client'
 import { useMutation } from '@tanstack/react-query'
-import { AuthButton, AuthField } from '../../_components'
+import { AuthButton, AuthField } from '../../components'
 import { RegisterFormData, RegisterSchema } from '../schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
@@ -62,6 +62,14 @@ export const RegisterForm = () => {
           placeholder='••••••••'
           {...register('password')}
           error={errors.password?.message}
+        />
+        <AuthField
+          label='Подтвердите пароль'
+          id='confirmPassword'
+          type='password'
+          placeholder='••••••••'
+          {...register('confirmPassword')}
+          error={errors.confirmPassword?.message}
         />
       </div>
       {rootError && (
