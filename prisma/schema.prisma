@@ -27,7 +27,7 @@ model Order {
   description   String?
   tags          String?
   published     Boolean    @default(false)
-  images        String?
+  images        Json       @default("[]")
   authorId      String
   author        User       @relation(fields: [authorId], references: [id])
   createdAt     DateTime   @default(now())

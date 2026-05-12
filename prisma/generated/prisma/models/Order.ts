@@ -32,7 +32,6 @@ export type OrderMinAggregateOutputType = {
   description: string | null
   tags: string | null
   published: boolean | null
-  images: string | null
   authorId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -46,7 +45,6 @@ export type OrderMaxAggregateOutputType = {
   description: string | null
   tags: string | null
   published: boolean | null
-  images: string | null
   authorId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -76,7 +74,6 @@ export type OrderMinAggregateInputType = {
   description?: true
   tags?: true
   published?: true
-  images?: true
   authorId?: true
   createdAt?: true
   updatedAt?: true
@@ -90,7 +87,6 @@ export type OrderMaxAggregateInputType = {
   description?: true
   tags?: true
   published?: true
-  images?: true
   authorId?: true
   createdAt?: true
   updatedAt?: true
@@ -191,7 +187,7 @@ export type OrderGroupByOutputType = {
   description: string | null
   tags: string | null
   published: boolean
-  images: string | null
+  images: runtime.JsonValue
   authorId: string
   createdAt: Date
   updatedAt: Date
@@ -226,7 +222,7 @@ export type OrderWhereInput = {
   description?: Prisma.StringNullableFilter<"Order"> | string | null
   tags?: Prisma.StringNullableFilter<"Order"> | string | null
   published?: Prisma.BoolFilter<"Order"> | boolean
-  images?: Prisma.StringNullableFilter<"Order"> | string | null
+  images?: Prisma.JsonFilter<"Order">
   authorId?: Prisma.StringFilter<"Order"> | string
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
@@ -242,7 +238,7 @@ export type OrderOrderByWithRelationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   tags?: Prisma.SortOrderInput | Prisma.SortOrder
   published?: Prisma.SortOrder
-  images?: Prisma.SortOrderInput | Prisma.SortOrder
+  images?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -261,7 +257,7 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringNullableFilter<"Order"> | string | null
   tags?: Prisma.StringNullableFilter<"Order"> | string | null
   published?: Prisma.BoolFilter<"Order"> | boolean
-  images?: Prisma.StringNullableFilter<"Order"> | string | null
+  images?: Prisma.JsonFilter<"Order">
   authorId?: Prisma.StringFilter<"Order"> | string
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
@@ -277,7 +273,7 @@ export type OrderOrderByWithAggregationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   tags?: Prisma.SortOrderInput | Prisma.SortOrder
   published?: Prisma.SortOrder
-  images?: Prisma.SortOrderInput | Prisma.SortOrder
+  images?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -297,7 +293,7 @@ export type OrderScalarWhereWithAggregatesInput = {
   description?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   tags?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   published?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
-  images?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  images?: Prisma.JsonWithAggregatesFilter<"Order">
   authorId?: Prisma.StringWithAggregatesFilter<"Order"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
@@ -311,7 +307,7 @@ export type OrderCreateInput = {
   description?: string | null
   tags?: string | null
   published?: boolean
-  images?: string | null
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutOrdersInput
@@ -326,7 +322,7 @@ export type OrderUncheckedCreateInput = {
   description?: string | null
   tags?: string | null
   published?: boolean
-  images?: string | null
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   authorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -341,7 +337,7 @@ export type OrderUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  images?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
@@ -356,7 +352,7 @@ export type OrderUncheckedUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  images?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -371,7 +367,7 @@ export type OrderCreateManyInput = {
   description?: string | null
   tags?: string | null
   published?: boolean
-  images?: string | null
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   authorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -385,7 +381,7 @@ export type OrderUpdateManyMutationInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  images?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -398,7 +394,7 @@ export type OrderUncheckedUpdateManyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  images?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -436,7 +432,6 @@ export type OrderMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   tags?: Prisma.SortOrder
   published?: Prisma.SortOrder
-  images?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -450,7 +445,6 @@ export type OrderMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   tags?: Prisma.SortOrder
   published?: Prisma.SortOrder
-  images?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -529,7 +523,7 @@ export type OrderCreateWithoutAuthorInput = {
   description?: string | null
   tags?: string | null
   published?: boolean
-  images?: string | null
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   packages?: Prisma.PackagesCreateNestedManyWithoutOrderInput
@@ -543,7 +537,7 @@ export type OrderUncheckedCreateWithoutAuthorInput = {
   description?: string | null
   tags?: string | null
   published?: boolean
-  images?: string | null
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   packages?: Prisma.PackagesUncheckedCreateNestedManyWithoutOrderInput
@@ -585,7 +579,7 @@ export type OrderScalarWhereInput = {
   description?: Prisma.StringNullableFilter<"Order"> | string | null
   tags?: Prisma.StringNullableFilter<"Order"> | string | null
   published?: Prisma.BoolFilter<"Order"> | boolean
-  images?: Prisma.StringNullableFilter<"Order"> | string | null
+  images?: Prisma.JsonFilter<"Order">
   authorId?: Prisma.StringFilter<"Order"> | string
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
@@ -599,7 +593,7 @@ export type OrderCreateWithoutPackagesInput = {
   description?: string | null
   tags?: string | null
   published?: boolean
-  images?: string | null
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutOrdersInput
@@ -613,7 +607,7 @@ export type OrderUncheckedCreateWithoutPackagesInput = {
   description?: string | null
   tags?: string | null
   published?: boolean
-  images?: string | null
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   authorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -643,7 +637,7 @@ export type OrderUpdateWithoutPackagesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  images?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
@@ -657,7 +651,7 @@ export type OrderUncheckedUpdateWithoutPackagesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  images?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -671,7 +665,7 @@ export type OrderCreateManyAuthorInput = {
   description?: string | null
   tags?: string | null
   published?: boolean
-  images?: string | null
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -684,7 +678,7 @@ export type OrderUpdateWithoutAuthorInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  images?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   packages?: Prisma.PackagesUpdateManyWithoutOrderNestedInput
@@ -698,7 +692,7 @@ export type OrderUncheckedUpdateWithoutAuthorInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  images?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   packages?: Prisma.PackagesUncheckedUpdateManyWithoutOrderNestedInput
@@ -712,7 +706,7 @@ export type OrderUncheckedUpdateManyWithoutAuthorInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  images?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -836,7 +830,7 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     description: string | null
     tags: string | null
     published: boolean
-    images: string | null
+    images: runtime.JsonValue
     authorId: string
     createdAt: Date
     updatedAt: Date
@@ -1272,7 +1266,7 @@ export interface OrderFieldRefs {
   readonly description: Prisma.FieldRef<"Order", 'String'>
   readonly tags: Prisma.FieldRef<"Order", 'String'>
   readonly published: Prisma.FieldRef<"Order", 'Boolean'>
-  readonly images: Prisma.FieldRef<"Order", 'String'>
+  readonly images: Prisma.FieldRef<"Order", 'Json'>
   readonly authorId: Prisma.FieldRef<"Order", 'String'>
   readonly createdAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Order", 'DateTime'>

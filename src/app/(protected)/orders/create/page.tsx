@@ -151,7 +151,9 @@ export default function CreateServicePage() {
   }
 
   return (
-    <OrdersForm />
+    <div className='container m-auto w-250'>
+      <OrdersForm />
+    </div>
     // <div className='max-w-4xl mx-auto'>
     //   {/* Header */}
     //   <div className='flex items-center justify-between mb-8'>
@@ -670,7 +672,7 @@ export default function CreateServicePage() {
     //       </div>
     //     )}
 
-    //     {/* Navigation */}
+    // //     {/* Navigation */}
     //     <div className='flex items-center justify-between p-6 lg:p-8 border-t border-outline-variant bg-surface-container-lowest'>
     //       <button
     //         onClick={() => setStep(step - 1)}
@@ -701,7 +703,7 @@ export default function CreateServicePage() {
     //         )} */}
     //       </div>
     //     </div>
-    //   </div>
+    // </div>
     // </div>
   )
 }
