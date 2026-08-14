@@ -32,35 +32,20 @@ export const OrdersForm = () => {
     { id: 3, title: 'Пакеты', icon: DollarSign },
     { id: 4, title: 'FAQ', icon: HelpCircle },
   ]
-  const [faqs, setFaqs] = useState<FAQ[]>([{ id: '1', question: '', answer: '' }])
-  const addFaq = () => {
-    if (faqs.length < 10) {
-      setFaqs([...faqs, { id: Date.now().toString(), question: '', answer: '' }])
-    }
-  }
-
-  const updateFaq = (id: string, field: 'question' | 'answer', value: string) => {
-    setFaqs(faqs.map(faq => (faq.id === id ? { ...faq, [field]: value } : faq)))
-  }
-
-  const removeFaq = (id: string) => {
-    if (faqs.length > 1) {
-      setFaqs(faqs.filter(faq => faq.id !== id))
-    }
-  }
 
   const imageUploadInput = useRef<HTMLInputElement>(null)
   const [imageFiles, setImageFiles] = useState<File[]>([])
   const [imagePreviews, setImagePreviews] = useState<string[]>([])
+
   const {
     control,
-    reset,
     watch,
+    reset,
     register,
     handleSubmit,
     setValue,
     getValues,
-    formState: { errors, isSubmitting },
+    formState: { isValid },
   } = useForm<OrdersFormData>({
     resolver: zodResolver(OrdersSchema),
     mode: 'onChange',
@@ -68,6 +53,7 @@ export const OrdersForm = () => {
       packages: [],
     },
   })
+
   const tags = watch('tags') ?? []
   const selectedCategory = watch('categories')
   const [step, setStep] = useState(1)
@@ -75,7 +61,6 @@ export const OrdersForm = () => {
 
   const currentSubcategories =
     CATEGORIES_OPTIONS.find(c => c.value === watch('categories'))?.subcategories || []
-  const featuresByPackage = (index: number) => watch(`packages.${index}`) ?? []
 
   const addTag = () => {
     const trimmed = valueTag.trim()
@@ -107,6 +92,7 @@ export const OrdersForm = () => {
   const handleButtonClick = () => {
     imageUploadInput.current?.click()
   }
+
   const {
     fields: packagesFields,
     append,
@@ -117,6 +103,14 @@ export const OrdersForm = () => {
     name: 'packages',
   })
 
+  const {
+    fields: faqsFields,
+    append: appendFaq,
+    remove: removeFaq,
+  } = useFieldArray({
+    control,
+    name: 'faq',
+  })
   const packages = useWatch({
     control,
     name: 'packages',
@@ -138,26 +132,28 @@ export const OrdersForm = () => {
 
   async function onSubmit(data: OrdersFormData) {
     console.log('Отправка данных:', data)
-    // const formData = new FormData()
+    const formData = new FormData()
+    formData.append('title', data.title)
+    formData.append('categories', data.categories)
+    formData.append('subcategories', data.subcategories)
+    formData.append('description', data.description || '')
+    formData.append('tags', JSON.stringify(data.tags || []))
+    formData.append('packages', JSON.stringify(data.packages || []))
+    formData.append('faq', JSON.stringify(faqsFields || []))
 
-    // formData.append('title', data.title)
-    // formData.append('categories', data.categories)
-    // formData.append('subcategories', data.subcategories)
-    // formData.append('description', data.description)
-    // formData.append('tags', JSON.stringify(data.tags))
-    // // formData.append('packages', JSON.stringify(packages))
-
-    // imageFiles.forEach(file => formData.append('images', file))
-    // const result = await ordersAction(formData)
-    // if (result.success) {
-    //   reset()
-    //   setImageFiles([])
-    //   setImagePreviews([])
-    // }
+    imageFiles.forEach(file => formData.append('images', file))
+    const result = await ordersAction(formData)
+    if (result.success) {
+      reset()
+      setImageFiles([])
+      setImagePreviews([])
+    }
   }
+
   const onError = (errors: unknown) => {
     console.log('Ошибки валидации:', errors)
   }
+
   useEffect(() => {
     setValue('subcategories', '')
   }, [selectedCategory])
@@ -190,6 +186,7 @@ export const OrdersForm = () => {
             >
               <button
                 onClick={() => setStep(s.id)}
+                type='button'
                 className={`flex items-center gap-3 ${
                   step === s.id
                     ? 'text-primary'
@@ -636,7 +633,7 @@ export const OrdersForm = () => {
               </div>
 
               <div className='space-y-3'>
-                {faqs.map((faq, index) => (
+                {faqsFields.map((faq, index) => (
                   <div
                     key={faq.id}
                     className='bg-surface-container-low rounded-xl p-4 space-y-3'
@@ -645,9 +642,10 @@ export const OrdersForm = () => {
                       <span className='w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-xs font-medium text-on-surface-variant'>
                         {index + 1}
                       </span>
-                      {faqs.length > 1 && (
+                      {faqsFields.length >= 1 && (
                         <button
-                          onClick={() => removeFaq(faq.id)}
+                          type='button'
+                          onClick={() => removeFaq(index)}
                           className='p-1.5 rounded-lg text-on-surface-variant hover:text-destructive hover:bg-destructive/10 transition-colors'
                         >
                           <Trash2 className='w-4 h-4' />
@@ -659,8 +657,7 @@ export const OrdersForm = () => {
                       <label className='block text-xs font-medium text-on-surface'>Вопрос</label>
                       <input
                         type='text'
-                        value={faq.question}
-                        onChange={e => updateFaq(faq.id, 'question', e.target.value)}
+                        {...register(`faq.${index}.question`)}
                         placeholder='Например: Какие исходные материалы нужны?'
                         className='w-full px-3 py-2.5 rounded-lg bg-surface-container text-sm text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-shadow'
                       />
@@ -669,8 +666,7 @@ export const OrdersForm = () => {
                     <div className='space-y-1.5'>
                       <label className='block text-xs font-medium text-on-surface'>Ответ</label>
                       <textarea
-                        value={faq.answer}
-                        onChange={e => updateFaq(faq.id, 'answer', e.target.value)}
+                        {...register(`faq.${index}.answer`)}
                         placeholder='Введите ответ на вопрос...'
                         rows={2}
                         className='w-full px-3 py-2.5 rounded-lg bg-surface-container text-sm text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-shadow resize-none'
@@ -680,9 +676,10 @@ export const OrdersForm = () => {
                 ))}
               </div>
 
-              {faqs.length < 10 && (
+              {faqsFields.length < 10 && (
                 <button
-                  onClick={addFaq}
+                  type='button'
+                  onClick={() => appendFaq({ question: '', answer: '' })}
                   className='flex items-center justify-center gap-2 w-full py-2.5 rounded-xl border-2 border-dashed border-outline-variant text-on-surface-variant hover:border-primary/50 hover:text-primary transition-colors'
                 >
                   <Plus className='w-4 h-4' />
@@ -695,6 +692,7 @@ export const OrdersForm = () => {
           <div className='flex items-center justify-between pt-6 border-t border-outline-variant bg-surface-container-lowest'>
             <button
               onClick={() => setStep(step - 1)}
+              type='button'
               disabled={step === 1}
               className='px-6 py-3 rounded-full text-on-surface-variant font-medium hover:bg-surface-container-low transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
             >
@@ -702,7 +700,7 @@ export const OrdersForm = () => {
             </button>
 
             <div className='flex items-center gap-3'>
-              {watch('tags')?.length !== 0 && (
+              {!isValid && (
                 <span className='text-sm text-on-surface-variant flex items-center gap-1.5'>
                   <AlertCircle className='w-4 h-4 text-amber-500' />
                   Заполните обязательные поля
@@ -710,14 +708,19 @@ export const OrdersForm = () => {
               )}
               {step < 4 ? (
                 <button
+                  type='button'
                   onClick={() => setStep(step + 1)}
-                  // disabled={!isStepValid()}
+                  disabled={!isValid}
                   className='px-6 py-3 rounded-full gradient-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed'
                 >
                   Далее
                 </button>
               ) : (
-                <button className='px-8 py-3 rounded-full gradient-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity'>
+                <button
+                  type='submit'
+                  className='px-8 py-3 rounded-full gradient-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed '
+                  disabled={!isValid}
+                >
                   Опубликовать услугу
                 </button>
               )}

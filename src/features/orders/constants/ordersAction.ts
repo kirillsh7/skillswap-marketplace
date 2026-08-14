@@ -1,13 +1,25 @@
 'use server'
 
+import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma/prisma'
 import { mkdir, writeFile } from 'fs/promises'
+import { getServerSession } from 'next-auth'
 import path from 'path'
 
 export const ordersAction = async (formData: FormData) => {
   try {
+    const session = await getServerSession(authOptions)
+    if (!session?.user?.id) {
+      return { success: false, error: 'Пользователь не авторизован' }
+    }
+
     const title = formData.get('title') as string
+    const categories = formData.get('categories') as string
+    const subcategories = formData.get('subcategories') as string
     const description = formData.get('description') as string
+    const tagsJson = (formData.get('tags') as string) || '[]'
+    const packagesJson = (formData.get('packages') as string) || '[]'
+    const faqJson = (formData.get('faq') as string) || '[]'
 
     // 2. Файлы
     const files = formData.getAll('images') as File[]
@@ -36,14 +48,19 @@ export const ordersAction = async (formData: FormData) => {
     }
 
     // 3. Валидация и запись в БД
-    // const newService = await prisma.order.create({
-    //   data: {
-
-    //     title: title,
-    //     description: description,
-    //     images: uploadedPaths, // Prisma превратит массив в JSON
-    //   },
-    // })
+    const newOrder = await prisma.order.create({
+      data: {
+        title,
+        categories,
+        subcategories,
+        description,
+        tags: JSON.parse(tagsJson),
+        packages: JSON.parse(packagesJson),
+        faq: JSON.parse(faqJson),
+        images: uploadedPaths,
+        authorId: session.user.id, // Prisma превратит массив в JSON
+      },
+    })
     return { success: true }
   } catch (error) {
     console.log(error)

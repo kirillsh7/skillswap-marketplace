@@ -51,8 +51,3 @@ export type User = Prisma.UserModel
  * 
  */
 export type Order = Prisma.OrderModel
-/**
- * Model Packages
- * 
- */
-export type Packages = Prisma.PackagesModel

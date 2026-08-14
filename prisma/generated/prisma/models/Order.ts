@@ -30,7 +30,6 @@ export type OrderMinAggregateOutputType = {
   categories: string | null
   subcategories: string | null
   description: string | null
-  tags: string | null
   published: boolean | null
   authorId: string | null
   createdAt: Date | null
@@ -43,7 +42,6 @@ export type OrderMaxAggregateOutputType = {
   categories: string | null
   subcategories: string | null
   description: string | null
-  tags: string | null
   published: boolean | null
   authorId: string | null
   createdAt: Date | null
@@ -57,8 +55,10 @@ export type OrderCountAggregateOutputType = {
   subcategories: number
   description: number
   tags: number
-  published: number
   images: number
+  packages: number
+  faq: number
+  published: number
   authorId: number
   createdAt: number
   updatedAt: number
@@ -72,7 +72,6 @@ export type OrderMinAggregateInputType = {
   categories?: true
   subcategories?: true
   description?: true
-  tags?: true
   published?: true
   authorId?: true
   createdAt?: true
@@ -85,7 +84,6 @@ export type OrderMaxAggregateInputType = {
   categories?: true
   subcategories?: true
   description?: true
-  tags?: true
   published?: true
   authorId?: true
   createdAt?: true
@@ -99,8 +97,10 @@ export type OrderCountAggregateInputType = {
   subcategories?: true
   description?: true
   tags?: true
-  published?: true
   images?: true
+  packages?: true
+  faq?: true
+  published?: true
   authorId?: true
   createdAt?: true
   updatedAt?: true
@@ -185,9 +185,11 @@ export type OrderGroupByOutputType = {
   categories: string
   subcategories: string
   description: string | null
-  tags: string | null
+  tags: runtime.JsonValue | null
+  images: runtime.JsonValue | null
+  packages: runtime.JsonValue | null
+  faq: runtime.JsonValue | null
   published: boolean
-  images: runtime.JsonValue
   authorId: string
   createdAt: Date
   updatedAt: Date
@@ -220,14 +222,15 @@ export type OrderWhereInput = {
   categories?: Prisma.StringFilter<"Order"> | string
   subcategories?: Prisma.StringFilter<"Order"> | string
   description?: Prisma.StringNullableFilter<"Order"> | string | null
-  tags?: Prisma.StringNullableFilter<"Order"> | string | null
+  tags?: Prisma.JsonNullableFilter<"Order">
+  images?: Prisma.JsonNullableFilter<"Order">
+  packages?: Prisma.JsonNullableFilter<"Order">
+  faq?: Prisma.JsonNullableFilter<"Order">
   published?: Prisma.BoolFilter<"Order"> | boolean
-  images?: Prisma.JsonFilter<"Order">
   authorId?: Prisma.StringFilter<"Order"> | string
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  packages?: Prisma.PackagesListRelationFilter
 }
 
 export type OrderOrderByWithRelationInput = {
@@ -237,13 +240,14 @@ export type OrderOrderByWithRelationInput = {
   subcategories?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   tags?: Prisma.SortOrderInput | Prisma.SortOrder
+  images?: Prisma.SortOrderInput | Prisma.SortOrder
+  packages?: Prisma.SortOrderInput | Prisma.SortOrder
+  faq?: Prisma.SortOrderInput | Prisma.SortOrder
   published?: Prisma.SortOrder
-  images?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   author?: Prisma.UserOrderByWithRelationInput
-  packages?: Prisma.PackagesOrderByRelationAggregateInput
 }
 
 export type OrderWhereUniqueInput = Prisma.AtLeast<{
@@ -255,14 +259,15 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   categories?: Prisma.StringFilter<"Order"> | string
   subcategories?: Prisma.StringFilter<"Order"> | string
   description?: Prisma.StringNullableFilter<"Order"> | string | null
-  tags?: Prisma.StringNullableFilter<"Order"> | string | null
+  tags?: Prisma.JsonNullableFilter<"Order">
+  images?: Prisma.JsonNullableFilter<"Order">
+  packages?: Prisma.JsonNullableFilter<"Order">
+  faq?: Prisma.JsonNullableFilter<"Order">
   published?: Prisma.BoolFilter<"Order"> | boolean
-  images?: Prisma.JsonFilter<"Order">
   authorId?: Prisma.StringFilter<"Order"> | string
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  packages?: Prisma.PackagesListRelationFilter
 }, "id">
 
 export type OrderOrderByWithAggregationInput = {
@@ -272,8 +277,10 @@ export type OrderOrderByWithAggregationInput = {
   subcategories?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   tags?: Prisma.SortOrderInput | Prisma.SortOrder
+  images?: Prisma.SortOrderInput | Prisma.SortOrder
+  packages?: Prisma.SortOrderInput | Prisma.SortOrder
+  faq?: Prisma.SortOrderInput | Prisma.SortOrder
   published?: Prisma.SortOrder
-  images?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -291,9 +298,11 @@ export type OrderScalarWhereWithAggregatesInput = {
   categories?: Prisma.StringWithAggregatesFilter<"Order"> | string
   subcategories?: Prisma.StringWithAggregatesFilter<"Order"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
-  tags?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  tags?: Prisma.JsonNullableWithAggregatesFilter<"Order">
+  images?: Prisma.JsonNullableWithAggregatesFilter<"Order">
+  packages?: Prisma.JsonNullableWithAggregatesFilter<"Order">
+  faq?: Prisma.JsonNullableWithAggregatesFilter<"Order">
   published?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
-  images?: Prisma.JsonWithAggregatesFilter<"Order">
   authorId?: Prisma.StringWithAggregatesFilter<"Order"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
@@ -305,13 +314,14 @@ export type OrderCreateInput = {
   categories: string
   subcategories: string
   description?: string | null
-  tags?: string | null
+  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  images?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  packages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  faq?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   published?: boolean
-  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutOrdersInput
-  packages?: Prisma.PackagesCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateInput = {
@@ -320,13 +330,14 @@ export type OrderUncheckedCreateInput = {
   categories: string
   subcategories: string
   description?: string | null
-  tags?: string | null
+  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  images?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  packages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  faq?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   published?: boolean
-  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   authorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  packages?: Prisma.PackagesUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUpdateInput = {
@@ -335,13 +346,14 @@ export type OrderUpdateInput = {
   categories?: Prisma.StringFieldUpdateOperationsInput | string
   subcategories?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  images?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  packages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  faq?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
-  packages?: Prisma.PackagesUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateInput = {
@@ -350,13 +362,14 @@ export type OrderUncheckedUpdateInput = {
   categories?: Prisma.StringFieldUpdateOperationsInput | string
   subcategories?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  images?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  packages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  faq?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packages?: Prisma.PackagesUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderCreateManyInput = {
@@ -365,9 +378,11 @@ export type OrderCreateManyInput = {
   categories: string
   subcategories: string
   description?: string | null
-  tags?: string | null
+  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  images?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  packages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  faq?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   published?: boolean
-  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   authorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -379,9 +394,11 @@ export type OrderUpdateManyMutationInput = {
   categories?: Prisma.StringFieldUpdateOperationsInput | string
   subcategories?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  images?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  packages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  faq?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -392,9 +409,11 @@ export type OrderUncheckedUpdateManyInput = {
   categories?: Prisma.StringFieldUpdateOperationsInput | string
   subcategories?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  images?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  packages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  faq?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -417,8 +436,10 @@ export type OrderCountOrderByAggregateInput = {
   subcategories?: Prisma.SortOrder
   description?: Prisma.SortOrder
   tags?: Prisma.SortOrder
-  published?: Prisma.SortOrder
   images?: Prisma.SortOrder
+  packages?: Prisma.SortOrder
+  faq?: Prisma.SortOrder
+  published?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -430,7 +451,6 @@ export type OrderMaxOrderByAggregateInput = {
   categories?: Prisma.SortOrder
   subcategories?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  tags?: Prisma.SortOrder
   published?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -443,16 +463,10 @@ export type OrderMinOrderByAggregateInput = {
   categories?: Prisma.SortOrder
   subcategories?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  tags?: Prisma.SortOrder
   published?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type OrderScalarRelationFilter = {
-  is?: Prisma.OrderWhereInput
-  isNot?: Prisma.OrderWhereInput
 }
 
 export type OrderCreateNestedManyWithoutAuthorInput = {
@@ -501,32 +515,19 @@ export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
-export type OrderCreateNestedOneWithoutPackagesInput = {
-  create?: Prisma.XOR<Prisma.OrderCreateWithoutPackagesInput, Prisma.OrderUncheckedCreateWithoutPackagesInput>
-  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutPackagesInput
-  connect?: Prisma.OrderWhereUniqueInput
-}
-
-export type OrderUpdateOneRequiredWithoutPackagesNestedInput = {
-  create?: Prisma.XOR<Prisma.OrderCreateWithoutPackagesInput, Prisma.OrderUncheckedCreateWithoutPackagesInput>
-  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutPackagesInput
-  upsert?: Prisma.OrderUpsertWithoutPackagesInput
-  connect?: Prisma.OrderWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.OrderUpdateToOneWithWhereWithoutPackagesInput, Prisma.OrderUpdateWithoutPackagesInput>, Prisma.OrderUncheckedUpdateWithoutPackagesInput>
-}
-
 export type OrderCreateWithoutAuthorInput = {
   id?: string
   title: string
   categories: string
   subcategories: string
   description?: string | null
-  tags?: string | null
+  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  images?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  packages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  faq?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   published?: boolean
-  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
-  packages?: Prisma.PackagesCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutAuthorInput = {
@@ -535,12 +536,13 @@ export type OrderUncheckedCreateWithoutAuthorInput = {
   categories: string
   subcategories: string
   description?: string | null
-  tags?: string | null
+  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  images?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  packages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  faq?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   published?: boolean
-  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
-  packages?: Prisma.PackagesUncheckedCreateNestedManyWithoutOrderInput
 }
 
 export type OrderCreateOrConnectWithoutAuthorInput = {
@@ -577,84 +579,14 @@ export type OrderScalarWhereInput = {
   categories?: Prisma.StringFilter<"Order"> | string
   subcategories?: Prisma.StringFilter<"Order"> | string
   description?: Prisma.StringNullableFilter<"Order"> | string | null
-  tags?: Prisma.StringNullableFilter<"Order"> | string | null
+  tags?: Prisma.JsonNullableFilter<"Order">
+  images?: Prisma.JsonNullableFilter<"Order">
+  packages?: Prisma.JsonNullableFilter<"Order">
+  faq?: Prisma.JsonNullableFilter<"Order">
   published?: Prisma.BoolFilter<"Order"> | boolean
-  images?: Prisma.JsonFilter<"Order">
   authorId?: Prisma.StringFilter<"Order"> | string
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
-}
-
-export type OrderCreateWithoutPackagesInput = {
-  id?: string
-  title: string
-  categories: string
-  subcategories: string
-  description?: string | null
-  tags?: string | null
-  published?: boolean
-  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  author: Prisma.UserCreateNestedOneWithoutOrdersInput
-}
-
-export type OrderUncheckedCreateWithoutPackagesInput = {
-  id?: string
-  title: string
-  categories: string
-  subcategories: string
-  description?: string | null
-  tags?: string | null
-  published?: boolean
-  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  authorId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type OrderCreateOrConnectWithoutPackagesInput = {
-  where: Prisma.OrderWhereUniqueInput
-  create: Prisma.XOR<Prisma.OrderCreateWithoutPackagesInput, Prisma.OrderUncheckedCreateWithoutPackagesInput>
-}
-
-export type OrderUpsertWithoutPackagesInput = {
-  update: Prisma.XOR<Prisma.OrderUpdateWithoutPackagesInput, Prisma.OrderUncheckedUpdateWithoutPackagesInput>
-  create: Prisma.XOR<Prisma.OrderCreateWithoutPackagesInput, Prisma.OrderUncheckedCreateWithoutPackagesInput>
-  where?: Prisma.OrderWhereInput
-}
-
-export type OrderUpdateToOneWithWhereWithoutPackagesInput = {
-  where?: Prisma.OrderWhereInput
-  data: Prisma.XOR<Prisma.OrderUpdateWithoutPackagesInput, Prisma.OrderUncheckedUpdateWithoutPackagesInput>
-}
-
-export type OrderUpdateWithoutPackagesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  categories?: Prisma.StringFieldUpdateOperationsInput | string
-  subcategories?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  author?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
-}
-
-export type OrderUncheckedUpdateWithoutPackagesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  categories?: Prisma.StringFieldUpdateOperationsInput | string
-  subcategories?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  authorId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type OrderCreateManyAuthorInput = {
@@ -663,9 +595,11 @@ export type OrderCreateManyAuthorInput = {
   categories: string
   subcategories: string
   description?: string | null
-  tags?: string | null
+  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  images?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  packages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  faq?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   published?: boolean
-  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -676,12 +610,13 @@ export type OrderUpdateWithoutAuthorInput = {
   categories?: Prisma.StringFieldUpdateOperationsInput | string
   subcategories?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  images?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  packages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  faq?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packages?: Prisma.PackagesUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutAuthorInput = {
@@ -690,12 +625,13 @@ export type OrderUncheckedUpdateWithoutAuthorInput = {
   categories?: Prisma.StringFieldUpdateOperationsInput | string
   subcategories?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  images?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  packages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  faq?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  packages?: Prisma.PackagesUncheckedUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateManyWithoutAuthorInput = {
@@ -704,42 +640,15 @@ export type OrderUncheckedUpdateManyWithoutAuthorInput = {
   categories?: Prisma.StringFieldUpdateOperationsInput | string
   subcategories?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tags?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  images?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  packages?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  faq?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-
-/**
- * Count Type OrderCountOutputType
- */
-
-export type OrderCountOutputType = {
-  packages: number
-}
-
-export type OrderCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  packages?: boolean | OrderCountOutputTypeCountPackagesArgs
-}
-
-/**
- * OrderCountOutputType without action
- */
-export type OrderCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the OrderCountOutputType
-   */
-  select?: Prisma.OrderCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * OrderCountOutputType without action
- */
-export type OrderCountOutputTypeCountPackagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PackagesWhereInput
-}
 
 
 export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -749,14 +658,14 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   subcategories?: boolean
   description?: boolean
   tags?: boolean
-  published?: boolean
   images?: boolean
+  packages?: boolean
+  faq?: boolean
+  published?: boolean
   authorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  packages?: boolean | Prisma.Order$packagesArgs<ExtArgs>
-  _count?: boolean | Prisma.OrderCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
 
 export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -766,8 +675,10 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   subcategories?: boolean
   description?: boolean
   tags?: boolean
-  published?: boolean
   images?: boolean
+  packages?: boolean
+  faq?: boolean
+  published?: boolean
   authorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -781,8 +692,10 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   subcategories?: boolean
   description?: boolean
   tags?: boolean
-  published?: boolean
   images?: boolean
+  packages?: boolean
+  faq?: boolean
+  published?: boolean
   authorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -796,18 +709,18 @@ export type OrderSelectScalar = {
   subcategories?: boolean
   description?: boolean
   tags?: boolean
-  published?: boolean
   images?: boolean
+  packages?: boolean
+  faq?: boolean
+  published?: boolean
   authorId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "categories" | "subcategories" | "description" | "tags" | "published" | "images" | "authorId" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "categories" | "subcategories" | "description" | "tags" | "images" | "packages" | "faq" | "published" | "authorId" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  packages?: boolean | Prisma.Order$packagesArgs<ExtArgs>
-  _count?: boolean | Prisma.OrderCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OrderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -820,7 +733,6 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name: "Order"
   objects: {
     author: Prisma.$UserPayload<ExtArgs>
-    packages: Prisma.$PackagesPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -828,9 +740,11 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     categories: string
     subcategories: string
     description: string | null
-    tags: string | null
+    tags: runtime.JsonValue | null
+    images: runtime.JsonValue | null
+    packages: runtime.JsonValue | null
+    faq: runtime.JsonValue | null
     published: boolean
-    images: runtime.JsonValue
     authorId: string
     createdAt: Date
     updatedAt: Date
@@ -1229,7 +1143,6 @@ readonly fields: OrderFieldRefs;
 export interface Prisma__OrderClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   author<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  packages<T extends Prisma.Order$packagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$packagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PackagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1264,9 +1177,11 @@ export interface OrderFieldRefs {
   readonly categories: Prisma.FieldRef<"Order", 'String'>
   readonly subcategories: Prisma.FieldRef<"Order", 'String'>
   readonly description: Prisma.FieldRef<"Order", 'String'>
-  readonly tags: Prisma.FieldRef<"Order", 'String'>
-  readonly published: Prisma.FieldRef<"Order", 'Boolean'>
+  readonly tags: Prisma.FieldRef<"Order", 'Json'>
   readonly images: Prisma.FieldRef<"Order", 'Json'>
+  readonly packages: Prisma.FieldRef<"Order", 'Json'>
+  readonly faq: Prisma.FieldRef<"Order", 'Json'>
+  readonly published: Prisma.FieldRef<"Order", 'Boolean'>
   readonly authorId: Prisma.FieldRef<"Order", 'String'>
   readonly createdAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Order", 'DateTime'>
@@ -1666,30 +1581,6 @@ export type OrderDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Orders to delete.
    */
   limit?: number
-}
-
-/**
- * Order.packages
- */
-export type Order$packagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Packages
-   */
-  select?: Prisma.PackagesSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Packages
-   */
-  omit?: Prisma.PackagesOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.PackagesInclude<ExtArgs> | null
-  where?: Prisma.PackagesWhereInput
-  orderBy?: Prisma.PackagesOrderByWithRelationInput | Prisma.PackagesOrderByWithRelationInput[]
-  cursor?: Prisma.PackagesWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.PackagesScalarFieldEnum | Prisma.PackagesScalarFieldEnum[]
 }
 
 /**

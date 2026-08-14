@@ -385,8 +385,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  Order: 'Order',
-  Packages: 'Packages'
+  Order: 'Order'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -402,7 +401,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "order" | "packages"
+    modelProps: "user" | "order"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -554,80 +553,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Packages: {
-      payload: Prisma.$PackagesPayload<ExtArgs>
-      fields: Prisma.PackagesFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.PackagesFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PackagesPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.PackagesFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PackagesPayload>
-        }
-        findFirst: {
-          args: Prisma.PackagesFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PackagesPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.PackagesFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PackagesPayload>
-        }
-        findMany: {
-          args: Prisma.PackagesFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PackagesPayload>[]
-        }
-        create: {
-          args: Prisma.PackagesCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PackagesPayload>
-        }
-        createMany: {
-          args: Prisma.PackagesCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.PackagesCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PackagesPayload>[]
-        }
-        delete: {
-          args: Prisma.PackagesDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PackagesPayload>
-        }
-        update: {
-          args: Prisma.PackagesUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PackagesPayload>
-        }
-        deleteMany: {
-          args: Prisma.PackagesDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.PackagesUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.PackagesUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PackagesPayload>[]
-        }
-        upsert: {
-          args: Prisma.PackagesUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PackagesPayload>
-        }
-        aggregate: {
-          args: Prisma.PackagesAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregatePackages>
-        }
-        groupBy: {
-          args: Prisma.PackagesGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.PackagesGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.PackagesCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.PackagesCountAggregateOutputType> | number
-        }
-      }
-    }
   }
 } & {
   other: {
@@ -685,30 +610,16 @@ export const OrderScalarFieldEnum = {
   subcategories: 'subcategories',
   description: 'description',
   tags: 'tags',
-  published: 'published',
   images: 'images',
+  packages: 'packages',
+  faq: 'faq',
+  published: 'published',
   authorId: 'authorId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
-
-
-export const PackagesScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  price: 'price',
-  delivery: 'delivery',
-  revisions: 'revisions',
-  features: 'features',
-  description: 'description',
-  orderId: 'orderId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type PackagesScalarFieldEnum = (typeof PackagesScalarFieldEnum)[keyof typeof PackagesScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -719,11 +630,12 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-export const JsonNullValueInput = {
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
   JsonNull: JsonNull
 } as const
 
-export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const NullsOrder = {
@@ -779,13 +691,6 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
 
 
 /**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-/**
  * Reference to a field of type 'Json'
  */
 export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
@@ -796,6 +701,13 @@ export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'J
  * Reference to a field of type 'QueryMode'
  */
 export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -902,7 +814,6 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   order?: Prisma.OrderOmit
-  packages?: Prisma.PackagesOmit
 }
 
 /* Types for Logging */

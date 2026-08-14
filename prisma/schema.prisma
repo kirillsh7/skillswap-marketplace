@@ -20,33 +20,20 @@ model User {
 }
 
 model Order {
-  id            String     @id @default(cuid())
+  id            String   @id @default(cuid())
   title         String
   categories    String
   subcategories String
   description   String?
-  tags          String?
-  published     Boolean    @default(false)
-  images        Json       @default("[]")
+  tags          Json?
+  images        Json?
+  packages      Json?
+  faq           Json?
+  published     Boolean  @default(true)
   authorId      String
-  author        User       @relation(fields: [authorId], references: [id])
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
-  packages      Packages[]
-}
-
-model Packages {
-  id          String   @id @default(cuid())
-  name        String
-  price       String
-  delivery    String
-  revisions   String
-  features    String
-  description String
-  orderId     String
-  order       Order    @relation(fields: [orderId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  author        User     @relation(fields: [authorId], references: [id])
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 enum Role {

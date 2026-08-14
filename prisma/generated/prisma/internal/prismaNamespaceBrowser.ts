@@ -52,8 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  Order: 'Order',
-  Packages: 'Packages'
+  Order: 'Order'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -90,30 +89,16 @@ export const OrderScalarFieldEnum = {
   subcategories: 'subcategories',
   description: 'description',
   tags: 'tags',
-  published: 'published',
   images: 'images',
+  packages: 'packages',
+  faq: 'faq',
+  published: 'published',
   authorId: 'authorId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
-
-
-export const PackagesScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  price: 'price',
-  delivery: 'delivery',
-  revisions: 'revisions',
-  features: 'features',
-  description: 'description',
-  orderId: 'orderId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type PackagesScalarFieldEnum = (typeof PackagesScalarFieldEnum)[keyof typeof PackagesScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -124,11 +109,12 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-export const JsonNullValueInput = {
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
   JsonNull: JsonNull
 } as const
 
-export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const NullsOrder = {

@@ -10,5 +10,4 @@
  */
 export type * from './models/User'
 export type * from './models/Order'
-export type * from './models/Packages'
 export type * from './commonInputTypes'
