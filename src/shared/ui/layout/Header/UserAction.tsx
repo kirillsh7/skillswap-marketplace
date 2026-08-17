@@ -54,7 +54,9 @@ export const UserAction = () => {
             <IconButton icon={<Wallet />} />
           </div>
 
-          <GhostButton>Мой кошелёк</GhostButton>
+          <GhostButton>
+            <Link href={ROUTES.WALLET}>Мой кошелёк</Link>
+          </GhostButton>
           <PrimaryButton>
             <Link href={`${ROUTES.ORDERS}/create`}>Разместить услугу</Link>
           </PrimaryButton>

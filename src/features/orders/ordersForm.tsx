@@ -2,7 +2,7 @@
 
 import { CATEGORIES_OPTIONS } from './constants/categories'
 import { OrdersFormData, OrdersSchema } from './schemas'
-import { ordersAction } from './constants/ordersAction'
+import { ordersAction } from './actions/ordersAction'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState, useEffect, useRef } from 'react'
 import { useFieldArray, useWatch, useForm } from 'react-hook-form'
