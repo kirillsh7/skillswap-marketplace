@@ -11,7 +11,7 @@ model User {
   id        String    @id @default(cuid())
   firstName String?
   lastName  String?
-  role      Role      @default(USER)
+  role      Role
   email     String    @unique
   password  String
   orders    Order[]
@@ -37,6 +37,7 @@ model Order {
 }
 
 enum Role {
-  USER
+  CLIENT
+  PROVIDER
   ADMIN
 }

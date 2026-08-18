@@ -1,8 +1,8 @@
 'use client'
 
-import { CATEGORIES_OPTIONS } from './constants/categories'
-import { OrdersFormData, OrdersSchema } from './schemas'
-import { ordersAction } from './actions/ordersAction'
+import { CATEGORIES_OPTIONS } from '../config/categories'
+import { OrdersFormData, OrdersSchema } from '../model/schemas'
+import { ordersAction } from '../model/actions/ordersAction'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState, useEffect, useRef } from 'react'
 import { useFieldArray, useWatch, useForm } from 'react-hook-form'
@@ -131,7 +131,7 @@ export const OrdersForm = () => {
   }
 
   async function onSubmit(data: OrdersFormData) {
-    console.log('Отправка данных:', data)
+    console.log('🔥 SUBMIT', data)
     const formData = new FormData()
     formData.append('title', data.title)
     formData.append('categories', data.categories)
@@ -151,9 +151,12 @@ export const OrdersForm = () => {
   }
 
   const onError = (errors: unknown) => {
+    console.log('🔥 VALIDATION ERROR', errors)
     console.log('Ошибки валидации:', errors)
   }
-
+  useEffect(() => {
+    console.log('OrdersForm mounted')
+  }, [])
   useEffect(() => {
     setValue('subcategories', '')
   }, [selectedCategory])
@@ -228,7 +231,15 @@ export const OrdersForm = () => {
       <div className='bg-surface-container-lowest rounded-2xl shadow-ambient overflow-hidden'>
         <form
           className='lg:p-8 py-0 space-y-6'
-          onSubmit={handleSubmit(onSubmit, onError)}
+          onSubmit={e => {
+            console.log('🔥 FORM SUBMIT EVENT', {
+              submitter: (e.nativeEvent as SubmitEvent).submitter,
+            })
+
+            e.preventDefault()
+
+            handleSubmit(onSubmit, onError)(e)
+          }}
         >
           {/* Step 1: Basic Info */}
           {step === 1 && (
@@ -709,18 +720,17 @@ export const OrdersForm = () => {
               {step < 4 ? (
                 <button
                   type='button'
-                  onClick={() => setStep(step + 1)}
+                  onClick={() => {
+                    console.log('NEXT CLICK', step)
+                    setStep(prev => prev + 1)
+                  }}
                   disabled={!isValid}
                   className='px-6 py-3 rounded-full gradient-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed'
                 >
                   Далее
                 </button>
               ) : (
-                <button
-                  type='submit'
-                  className='px-8 py-3 rounded-full gradient-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed '
-                  disabled={!isValid}
-                >
+                <button className='px-8 py-3 rounded-full gradient-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed '>
                   Опубликовать услугу
                 </button>
               )}

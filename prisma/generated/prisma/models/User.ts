@@ -268,7 +268,7 @@ export type UserCreateInput = {
   id?: string
   firstName?: string | null
   lastName?: string | null
-  role?: $Enums.Role
+  role: $Enums.Role
   email: string
   password: string
   createdAt?: Date | string
@@ -280,7 +280,7 @@ export type UserUncheckedCreateInput = {
   id?: string
   firstName?: string | null
   lastName?: string | null
-  role?: $Enums.Role
+  role: $Enums.Role
   email: string
   password: string
   createdAt?: Date | string
@@ -316,7 +316,7 @@ export type UserCreateManyInput = {
   id?: string
   firstName?: string | null
   lastName?: string | null
-  role?: $Enums.Role
+  role: $Enums.Role
   email: string
   password: string
   createdAt?: Date | string
@@ -421,7 +421,7 @@ export type UserCreateWithoutOrdersInput = {
   id?: string
   firstName?: string | null
   lastName?: string | null
-  role?: $Enums.Role
+  role: $Enums.Role
   email: string
   password: string
   createdAt?: Date | string
@@ -432,7 +432,7 @@ export type UserUncheckedCreateWithoutOrdersInput = {
   id?: string
   firstName?: string | null
   lastName?: string | null
-  role?: $Enums.Role
+  role: $Enums.Role
   email: string
   password: string
   createdAt?: Date | string

@@ -1,5 +1,5 @@
 'use client'
-import { stepsData } from './StepsData.constant'
+import { stepsData } from '../../config/StepsData.constant'
 import { StepCard } from './StepCard'
 
 export const FeaturesSection = () => {

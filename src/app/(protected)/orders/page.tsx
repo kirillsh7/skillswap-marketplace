@@ -13,9 +13,9 @@ export default async function OrdersPage() {
 
   return (
     <div className='container mx-auto py-8'>
-      <h1 className='text-3xl font-bold mb-6'>Заказы</h1>
+      <h1 className='text-3xl font-bold mb-6'>Услуги</h1>
       {orders.length === 0 ? (
-        <p className='text-on-surface-variant'>Пока нет заказов.</p>
+        <p className='text-on-surface-variant'>Пока нет услуг.</p>
       ) : (
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
           {orders.map(order => (

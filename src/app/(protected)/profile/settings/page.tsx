@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useTRPC } from '@/lib/trpc/client'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { updateProfileAction, changePasswordAction } from '@/features/settings/actions'
+import { updateProfileAction, changePasswordAction } from '@/features/settings/model/actions'
 import { User, Lock, CheckCircle, AlertCircle, Loader2 } from 'lucide-react'
 import { ROUTES } from '@/shared'
 

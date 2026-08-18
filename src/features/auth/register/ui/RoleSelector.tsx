@@ -1,6 +1,10 @@
 import { GraduationCap, User } from 'lucide-react'
-
-export const RoleSelector = ({ ...props }) => {
+interface RoleSelectorProps {
+  value?: string
+  onChange?: (value: string) => void
+  error?: string
+}
+export const RoleSelector = ({ value, onChange, error }: RoleSelectorProps) => {
   return (
     <fieldset className='space-y-4'>
       <legend className='text-sm font-semibold text-on-surface-variant mb-2 font-label uppercase tracking-wider'>
@@ -12,8 +16,9 @@ export const RoleSelector = ({ ...props }) => {
             className='peer sr-only'
             name='role'
             type='radio'
-            value='client'
-            {...props}
+            value='CLIENT'
+            checked={value === 'CLIENT'}
+            onChange={e => onChange?.(e.target.value)}
           />
           <span className='flex flex-col'>
             <User className='material-symbols-outlined text-primary mb-2' />
@@ -29,8 +34,9 @@ export const RoleSelector = ({ ...props }) => {
             className='peer sr-only'
             name='role'
             type='radio'
-            value='provider'
-            {...props}
+            value='PROVIDER'
+            checked={value === 'PROVIDER'}
+            onChange={e => onChange?.(e.target.value)}
           />
           <span className='flex flex-col'>
             <GraduationCap className='material-symbols-outlined text-primary mb-2' />
@@ -41,6 +47,7 @@ export const RoleSelector = ({ ...props }) => {
           </span>
           <span className='absolute inset-0 rounded-lg ring-2 ring-inset ring-transparent peer-checked:ring-primary pointer-events-none transition-all' />
         </label>
+        <p className='text-xs text-error'>{error}</p>
       </div>
     </fieldset>
   )

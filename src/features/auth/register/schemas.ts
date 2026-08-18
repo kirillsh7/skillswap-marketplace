@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 export const RegisterSchema = z
   .object({
+    role: z.enum(['CLIENT', 'PROVIDER'] as const, { message: 'Пожалуйста, выберите роль' }),
     email: z.email({ message: 'Неверный email' }),
     password: z.string().min(6, { message: 'Пароль должен быть не менее 6 символов' }),
     confirmPassword: z.string().min(6, { message: 'Пароль должен быть не менее 6 символов' }),

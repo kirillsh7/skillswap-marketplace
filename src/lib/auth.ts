@@ -28,8 +28,10 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
   },
+  pages: {
+    signIn: '/login',
+  },
   callbacks: {
-    // 1. JWT callback — добавляет данные в токен при входе
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id
@@ -38,11 +40,10 @@ export const authOptions: NextAuthOptions = {
       return token
     },
 
-    // 2. Session callback — копирует данные из токена в сессию
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.id as number
-        session.user.email = token.email as string
+        session.user.id = token.id
+        session.user.email = token.email
       }
       return session
     },

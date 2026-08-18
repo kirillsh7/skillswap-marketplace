@@ -1,10 +1,10 @@
 'use client'
 import Link from 'next/link'
 import { RoleSelector } from './RoleSelector'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { useTRPC } from '@/lib/trpc/client'
 import { useMutation } from '@tanstack/react-query'
-import { AuthButton, AuthField } from '../../components'
+import { AuthButton, AuthField } from '../../ui'
 import { RegisterFormData, RegisterSchema } from '../schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
@@ -17,6 +17,7 @@ export const RegisterForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [rootError, setRootError] = useState<string | null>(null)
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -45,7 +46,17 @@ export const RegisterForm = () => {
       className='space-y-6 bg-surface-container-lowest p-8 rounded-xl shadow-[0_10px_40px_-10px_rgba(7,30,39,0.06)]'
       onSubmit={handleSubmit(onSubmit)}
     >
-      <RoleSelector />
+      <Controller
+        name='role'
+        control={control}
+        render={({ field }) => (
+          <RoleSelector
+            value={field.value}
+            onChange={field.onChange}
+            error={errors.role?.message}
+          />
+        )}
+      />
 
       <div className='space-y-4'>
         <AuthField
