@@ -20,7 +20,7 @@ export const SearchBar = () => {
         icon={<Calendar />}
         placeholder='Когда?'
       />
-      <ActionButton>Найти</ActionButton>
+      <ActionButton className='rounded-full'>Найти</ActionButton>
     </div>
   )
 }

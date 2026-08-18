@@ -1,28 +1,28 @@
 import { prisma } from '@/lib/prisma/prisma'
 import { notFound } from 'next/navigation'
 
-export default async function OrderDetailPage({ params }: { params: { id: string } }) {
+export default async function ServicesDetailPage({ params }: { params: { id: string } }) {
   const { id } = await params
-  const order = await prisma.order.findUnique({
+  const services = await prisma.services.findUnique({
     where: { id },
     include: { author: true },
   })
 
-  if (!order) {
+  if (!services) {
     notFound()
   }
 
   // JSON-поля уже распарсены Prisma в массивы/объекты
-  const tags = (order.tags as string[]) ?? []
-  const packages = (order.packages as any[]) ?? []
-  const faq = (order.faq as any[]) ?? []
-  const images = (order.images as string[]) ?? []
+  const tags = (services.tags as string[]) ?? []
+  const packages = (services.packages as any[]) ?? []
+  const faq = (services.faq as any[]) ?? []
+  const images = (services.images as string[]) ?? []
 
   return (
     <div className='container mx-auto py-8 max-w-4xl'>
       <div className='bg-surface-container-lowest rounded-2xl p-8 shadow-ambient'>
-        <h1 className='text-3xl font-bold mb-4'>{order.title}</h1>
-        <p className='text-lg text-on-surface-variant mb-6'>{order.description}</p>
+        <h1 className='text-3xl font-bold mb-4'>{services.title}</h1>
+        <p className='text-lg text-on-surface-variant mb-6'>{services.description}</p>
 
         {images.length > 0 && (
           <div className='grid grid-cols-2 md:grid-cols-3 gap-4 mb-8'>
@@ -41,12 +41,12 @@ export default async function OrderDetailPage({ params }: { params: { id: string
           <div>
             <h3 className='font-semibold mb-2'>Категория</h3>
             <p className='text-on-surface-variant'>
-              {order.categories} / {order.subcategories}
+              {services.categories} / {services.subcategories}
             </p>
           </div>
           <div>
             <h3 className='font-semibold mb-2'>Автор</h3>
-            <p>{order.author.firstName || order.author.email}</p>
+            <p>{services.author.firstName || services.author.email}</p>
           </div>
         </div>
 

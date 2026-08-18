@@ -24,6 +24,7 @@ import {
   Upload,
   X,
 } from 'lucide-react'
+import { redirect } from 'next/navigation'
 
 export const ServicesForm = () => {
   const steps = [
@@ -148,6 +149,7 @@ export const ServicesForm = () => {
       reset()
       setImageFiles([])
       setImagePreviews([])
+      redirect(ROUTES.SERVICES)
     }
   }
 
