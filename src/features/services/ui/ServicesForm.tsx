@@ -1,8 +1,8 @@
 'use client'
 
 import { CATEGORIES_OPTIONS } from '../config/categories'
-import { OrdersFormData, OrdersSchema } from '../model/schemas'
-import { ordersAction } from '../model/actions/ordersAction'
+import { ServicesFormData, ServicesSchema } from '../model/schemas'
+import { ServicesAction } from '../model/actions/ServicesAction'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState, useEffect, useRef } from 'react'
 import { useFieldArray, useWatch, useForm } from 'react-hook-form'
@@ -25,7 +25,7 @@ import {
   X,
 } from 'lucide-react'
 
-export const OrdersForm = () => {
+export const ServicesForm = () => {
   const steps = [
     { id: 1, title: 'Основное', icon: FileText },
     { id: 2, title: 'Галерея', icon: ImageIcon },
@@ -33,9 +33,12 @@ export const OrdersForm = () => {
     { id: 4, title: 'FAQ', icon: HelpCircle },
   ]
 
+  const formRef = useRef<HTMLFormElement>(null)
   const imageUploadInput = useRef<HTMLInputElement>(null)
   const [imageFiles, setImageFiles] = useState<File[]>([])
   const [imagePreviews, setImagePreviews] = useState<string[]>([])
+  const [step, setStep] = useState(1)
+  const [valueTag, setValueTag] = useState('')
 
   const {
     control,
@@ -46,8 +49,8 @@ export const OrdersForm = () => {
     setValue,
     getValues,
     formState: { isValid },
-  } = useForm<OrdersFormData>({
-    resolver: zodResolver(OrdersSchema),
+  } = useForm<ServicesFormData>({
+    resolver: zodResolver(ServicesSchema),
     mode: 'onChange',
     defaultValues: {
       packages: [],
@@ -56,11 +59,32 @@ export const OrdersForm = () => {
 
   const tags = watch('tags') ?? []
   const selectedCategory = watch('categories')
-  const [step, setStep] = useState(1)
-  const [valueTag, setValueTag] = useState('')
 
   const currentSubcategories =
     CATEGORIES_OPTIONS.find(c => c.value === watch('categories'))?.subcategories || []
+
+  const {
+    fields: packagesFields,
+    append,
+    remove,
+  } = useFieldArray({
+    control,
+    name: 'packages',
+  })
+
+  const {
+    fields: faqsFields,
+    append: appendFaq,
+    remove: removeFaq,
+  } = useFieldArray({
+    control,
+    name: 'faq',
+  })
+
+  const packages = useWatch({
+    control,
+    name: 'packages',
+  })
 
   const addTag = () => {
     const trimmed = valueTag.trim()
@@ -68,6 +92,7 @@ export const OrdersForm = () => {
     setValue('tags', [...tags, trimmed])
     setValueTag('')
   }
+
   const removeTag = (id: number) => {
     setValue(
       'tags',
@@ -89,36 +114,13 @@ export const OrdersForm = () => {
     setImageFiles(prev => prev.filter((_, i) => i !== index))
     setImagePreviews(prev => prev.filter((_, i) => i !== index))
   }
+
   const handleButtonClick = () => {
     imageUploadInput.current?.click()
   }
 
-  const {
-    fields: packagesFields,
-    append,
-    remove,
-  } = useFieldArray({
-    control,
-
-    name: 'packages',
-  })
-
-  const {
-    fields: faqsFields,
-    append: appendFaq,
-    remove: removeFaq,
-  } = useFieldArray({
-    control,
-    name: 'faq',
-  })
-  const packages = useWatch({
-    control,
-    name: 'packages',
-  })
-
   const addFeature = (pkgIndex: number) => {
     const current = getValues(`packages.${pkgIndex}.features`) || []
-
     setValue(`packages.${pkgIndex}.features`, [...current, ''])
   }
 
@@ -130,8 +132,7 @@ export const OrdersForm = () => {
     )
   }
 
-  async function onSubmit(data: OrdersFormData) {
-    console.log('🔥 SUBMIT', data)
+  async function onSubmit(data: ServicesFormData) {
     const formData = new FormData()
     formData.append('title', data.title)
     formData.append('categories', data.categories)
@@ -142,7 +143,7 @@ export const OrdersForm = () => {
     formData.append('faq', JSON.stringify(faqsFields || []))
 
     imageFiles.forEach(file => formData.append('images', file))
-    const result = await ordersAction(formData)
+    const result = await ServicesAction(formData)
     if (result.success) {
       reset()
       setImageFiles([])
@@ -151,12 +152,9 @@ export const OrdersForm = () => {
   }
 
   const onError = (errors: unknown) => {
-    console.log('🔥 VALIDATION ERROR', errors)
     console.log('Ошибки валидации:', errors)
   }
-  useEffect(() => {
-    console.log('OrdersForm mounted')
-  }, [])
+
   useEffect(() => {
     setValue('subcategories', '')
   }, [selectedCategory])
@@ -230,16 +228,9 @@ export const OrdersForm = () => {
       {/* Step Content */}
       <div className='bg-surface-container-lowest rounded-2xl shadow-ambient overflow-hidden'>
         <form
+          ref={formRef}
           className='lg:p-8 py-0 space-y-6'
-          onSubmit={e => {
-            console.log('🔥 FORM SUBMIT EVENT', {
-              submitter: (e.nativeEvent as SubmitEvent).submitter,
-            })
-
-            e.preventDefault()
-
-            handleSubmit(onSubmit, onError)(e)
-          }}
+          onSubmit={handleSubmit(onSubmit, onError)}
         >
           {/* Step 1: Basic Info */}
           {step === 1 && (
@@ -699,44 +690,42 @@ export const OrdersForm = () => {
               )}
             </div>
           )}
-          {/* Navigation */}
-          <div className='flex items-center justify-between pt-6 border-t border-outline-variant bg-surface-container-lowest'>
-            <button
-              onClick={() => setStep(step - 1)}
-              type='button'
-              disabled={step === 1}
-              className='px-6 py-3 rounded-full text-on-surface-variant font-medium hover:bg-surface-container-low transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
-            >
-              Назад
-            </button>
-
-            <div className='flex items-center gap-3'>
-              {!isValid && (
-                <span className='text-sm text-on-surface-variant flex items-center gap-1.5'>
-                  <AlertCircle className='w-4 h-4 text-amber-500' />
-                  Заполните обязательные поля
-                </span>
-              )}
-              {step < 4 ? (
-                <button
-                  type='button'
-                  onClick={() => {
-                    console.log('NEXT CLICK', step)
-                    setStep(prev => prev + 1)
-                  }}
-                  disabled={!isValid}
-                  className='px-6 py-3 rounded-full gradient-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed'
-                >
-                  Далее
-                </button>
-              ) : (
-                <button className='px-8 py-3 rounded-full gradient-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed '>
-                  Опубликовать услугу
-                </button>
-              )}
-            </div>
-          </div>
         </form>
+        {/* Navigation */}
+        <div className='flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4 border-t border-outline-variant bg-surface-container-lowest'>
+          <button
+            onClick={() => setStep(prev => prev - 1)}
+            type='button'
+            disabled={step === 1}
+            className='px-6 py-3 rounded-full text-on-surface-variant font-medium hover:bg-surface-container-low transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
+          >
+            Назад
+          </button>
+
+          <div className='flex items-center gap-3'>
+            {!isValid && (
+              <span className='text-sm text-on-surface-variant flex items-center gap-1.5'>
+                <AlertCircle className='w-4 h-4 text-amber-500' />
+                Заполните обязательные поля
+              </span>
+            )}
+            {step < 4 ? (
+              <button
+                onClick={() => setStep(prev => prev + 1)}
+                className='px-6 py-3 rounded-full gradient-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed'
+              >
+                Далее
+              </button>
+            ) : (
+              <button
+                className='px-8 py-3 rounded-full gradient-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed '
+                onClick={() => formRef.current?.requestSubmit()}
+              >
+                Опубликовать услугу
+              </button>
+            )}
+          </div>
+        </div>
       </div>
     </>
   )

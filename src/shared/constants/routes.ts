@@ -5,7 +5,7 @@ export const ROUTES = {
   FORGOT_PASSWORD: '/forgot-password',
   DASHBOARD: '/dashboard',
   PROFILE: '/profile',
-  ORDERS: '/orders',
+  SERVICES: '/services',
   WALLET: '/wallet',
   BARTER: '/barter',
   ESCROW: '/escrow',

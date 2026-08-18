@@ -58,7 +58,7 @@ export const UserAction = () => {
             <Link href={ROUTES.WALLET}>Мой кошелёк</Link>
           </GhostButton>
           <PrimaryButton>
-            <Link href={`${ROUTES.ORDERS}/create`}>Разместить услугу</Link>
+            <Link href={`${ROUTES.SERVICES}/create`}>Разместить услугу</Link>
           </PrimaryButton>
           <button
             onClick={() => setIsOpen(!isOpen)}

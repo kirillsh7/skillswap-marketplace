@@ -6,7 +6,7 @@ import { mkdir, writeFile } from 'fs/promises'
 import { getServerSession } from 'next-auth'
 import path from 'path'
 
-export const ordersAction = async (formData: FormData) => {
+export const ServicesAction = async (formData: FormData) => {
   try {
     const session = await getServerSession(authOptions)
     if (!session?.user?.id) {
@@ -48,7 +48,7 @@ export const ordersAction = async (formData: FormData) => {
     }
 
     // 3. Валидация и запись в БД
-    const newOrder = await prisma.order.create({
+    const newService = await prisma.services.create({
       data: {
         title,
         categories,
@@ -58,7 +58,7 @@ export const ordersAction = async (formData: FormData) => {
         packages: JSON.parse(packagesJson),
         faq: JSON.parse(faqJson),
         images: uploadedPaths,
-        authorId: session.user.id, // Prisma превратит массив в JSON
+        authorId: session.user.id,
       },
     })
     return { success: true }

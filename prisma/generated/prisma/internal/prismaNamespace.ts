@@ -385,7 +385,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  Order: 'Order'
+  Services: 'Services'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -401,7 +401,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "order"
+    modelProps: "user" | "services"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -479,77 +479,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Order: {
-      payload: Prisma.$OrderPayload<ExtArgs>
-      fields: Prisma.OrderFieldRefs
+    Services: {
+      payload: Prisma.$ServicesPayload<ExtArgs>
+      fields: Prisma.ServicesFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.OrderFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderPayload> | null
+          args: Prisma.ServicesFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServicesPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.OrderFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderPayload>
+          args: Prisma.ServicesFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServicesPayload>
         }
         findFirst: {
-          args: Prisma.OrderFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderPayload> | null
+          args: Prisma.ServicesFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServicesPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.OrderFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderPayload>
+          args: Prisma.ServicesFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServicesPayload>
         }
         findMany: {
-          args: Prisma.OrderFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderPayload>[]
+          args: Prisma.ServicesFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServicesPayload>[]
         }
         create: {
-          args: Prisma.OrderCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderPayload>
+          args: Prisma.ServicesCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServicesPayload>
         }
         createMany: {
-          args: Prisma.OrderCreateManyArgs<ExtArgs>
+          args: Prisma.ServicesCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.OrderCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderPayload>[]
+          args: Prisma.ServicesCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServicesPayload>[]
         }
         delete: {
-          args: Prisma.OrderDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderPayload>
+          args: Prisma.ServicesDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServicesPayload>
         }
         update: {
-          args: Prisma.OrderUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderPayload>
+          args: Prisma.ServicesUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServicesPayload>
         }
         deleteMany: {
-          args: Prisma.OrderDeleteManyArgs<ExtArgs>
+          args: Prisma.ServicesDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.OrderUpdateManyArgs<ExtArgs>
+          args: Prisma.ServicesUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.OrderUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderPayload>[]
+          args: Prisma.ServicesUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServicesPayload>[]
         }
         upsert: {
-          args: Prisma.OrderUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderPayload>
+          args: Prisma.ServicesUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServicesPayload>
         }
         aggregate: {
-          args: Prisma.OrderAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateOrder>
+          args: Prisma.ServicesAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateServices>
         }
         groupBy: {
-          args: Prisma.OrderGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.OrderGroupByOutputType>[]
+          args: Prisma.ServicesGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ServicesGroupByOutputType>[]
         }
         count: {
-          args: Prisma.OrderCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.OrderCountAggregateOutputType> | number
+          args: Prisma.ServicesCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ServicesCountAggregateOutputType> | number
         }
       }
     }
@@ -603,7 +603,7 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const OrderScalarFieldEnum = {
+export const ServicesScalarFieldEnum = {
   id: 'id',
   title: 'title',
   categories: 'categories',
@@ -619,7 +619,7 @@ export const OrderScalarFieldEnum = {
   updatedAt: 'updatedAt'
 } as const
 
-export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
+export type ServicesScalarFieldEnum = (typeof ServicesScalarFieldEnum)[keyof typeof ServicesScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -813,7 +813,7 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
-  order?: Prisma.OrderOmit
+  services?: Prisma.ServicesOmit
 }
 
 /* Types for Logging */

@@ -8,18 +8,18 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(cuid())
+  id        String     @id @default(cuid())
   firstName String?
   lastName  String?
   role      Role
-  email     String    @unique
+  email     String     @unique
   password  String
-  orders    Order[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  services  Services[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime?  @updatedAt
 }
 
-model Order {
+model Services {
   id            String   @id @default(cuid())
   title         String
   categories    String

@@ -30,7 +30,7 @@ export default async function ProfilePage() {
       lastName: true,
       role: true,
       createdAt: true,
-      orders: {
+      services: {
         select: {
           id: true,
           title: true,
@@ -49,19 +49,19 @@ export default async function ProfilePage() {
 
   if (!user) redirect('/login')
 
-  const totalOrders = user.orders.length
-  const publishedOrders = user.orders.filter(o => o.published)
-  const draftOrders = user.orders.filter(o => !o.published)
+  const totalServices = user.services.length
+  const publishedServices = user.services.filter(o => o.published)
+  const draftServices = user.services.filter(o => !o.published)
   const allTags = new Set<string>()
-  user.orders.forEach(order => {
-    const tags = (order.tags as string[]) || []
+  user.services.forEach(service => {
+    const tags = (service.tags as string[]) || []
     tags.forEach(t => allTags.add(t))
   })
 
   // Средняя цена: берём первый пакет каждого заказа и считаем среднее
-  const prices = user.orders
-    .map(order => {
-      const packages = (order.packages as any[]) || []
+  const prices = user.services
+    .map(service => {
+      const packages = (service.packages as any[]) || []
       if (packages.length > 0 && packages[0]?.price) {
         return Number(packages[0].price)
       }
@@ -110,7 +110,7 @@ export default async function ProfilePage() {
                 Настройки
               </button>
               <Link
-                href={ROUTES.ORDERS}
+                href={ROUTES.SERVICES}
                 className='flex items-center gap-2 px-5 py-2.5 rounded-full gradient-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity'
               >
                 <Plus className='w-4 h-4' />
@@ -128,21 +128,21 @@ export default async function ProfilePage() {
             <span className='text-on-surface-variant text-sm'>Всего услуг</span>
             <Package className='w-5 h-5 text-primary' />
           </div>
-          <p className='text-3xl font-bold mt-2'>{totalOrders}</p>
+          <p className='text-3xl font-bold mt-2'>{totalServices}</p>
         </div>
         <div className='bg-surface-container-lowest rounded-2xl p-5 shadow-ambient'>
           <div className='flex items-center justify-between'>
             <span className='text-on-surface-variant text-sm'>Опубликовано</span>
             <CheckCircle2 className='w-5 h-5 text-secondary' />
           </div>
-          <p className='text-3xl font-bold mt-2'>{publishedOrders.length}</p>
+          <p className='text-3xl font-bold mt-2'>{publishedServices.length}</p>
         </div>
         <div className='bg-surface-container-lowest rounded-2xl p-5 shadow-ambient'>
           <div className='flex items-center justify-between'>
             <span className='text-on-surface-variant text-sm'>Черновики</span>
             <Clock className='w-5 h-5 text-amber-500' />
           </div>
-          <p className='text-3xl font-bold mt-2'>{draftOrders.length}</p>
+          <p className='text-3xl font-bold mt-2'>{draftServices.length}</p>
         </div>
         <div className='bg-surface-container-lowest rounded-2xl p-5 shadow-ambient'>
           <div className='flex items-center justify-between'>
@@ -186,7 +186,7 @@ export default async function ProfilePage() {
           <Briefcase className='w-6 h-6 text-primary' />
           <div>
             <p className='text-sm text-on-surface-variant'>Специализация</p>
-            <p className='font-medium'>{user.orders[0]?.categories || 'Не указана'}</p>
+            <p className='font-medium'>{user.services[0]?.categories || 'Не указана'}</p>
           </div>
         </div>
       </div>
@@ -202,11 +202,11 @@ export default async function ProfilePage() {
             Все услуги <ArrowRight className='w-4 h-4' />
           </Link>
         </div>
-        {user.orders.length === 0 ? (
+        {user.services.length === 0 ? (
           <p className='text-on-surface-variant'>У вас пока нет услуг. Создайте первую!</p>
         ) : (
           <div className='space-y-3'>
-            {user.orders.slice(0, 5).map(order => {
+            {user.services.slice(0, 5).map(order => {
               const images = (order.images as string[]) || []
               const image = images[0]
               const packages = (order.packages as any[]) || []
@@ -214,7 +214,7 @@ export default async function ProfilePage() {
               return (
                 <Link
                   key={order.id}
-                  href={`${ROUTES.ORDERS}/${order.id}`}
+                  href={`${ROUTES.SERVICES}/${order.id}`}
                   className='flex items-center gap-4 p-3 rounded-xl hover:bg-surface-container-low transition-colors'
                 >
                   {image ? (

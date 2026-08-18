@@ -13,7 +13,7 @@ const FaqSchema = z.object({
   answer: z.string().min(1, 'Введите ответ'),
 })
 // Основная схема заказа
-export const OrdersSchema = z.object({
+export const ServicesSchema = z.object({
   // Шаг 1: Основное
   title: z.string().min(5, 'Минимум 5 символов').max(100, 'Слишком длинное название'),
   categories: z.string(),
@@ -33,4 +33,4 @@ export const OrdersSchema = z.object({
   published: z.boolean().optional(),
 })
 
-export type OrdersFormData = z.input<typeof OrdersSchema>
+export type ServicesFormData = z.input<typeof ServicesSchema>
